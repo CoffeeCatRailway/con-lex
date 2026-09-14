@@ -1,0 +1,466 @@
+[gd_scene format=3 uid="uid://cmkijaun62dm7"]
+
+[ext_resource type="Script" uid="uid://du122dx1arqoe" path="res://scripts/lex_entry.gd" id="1_ycj4g"]
+[ext_resource type="Texture2D" uid="uid://cwtqtydqk0vat" path="res://assets/testures/entry_buttons.png" id="2_0x1ne"]
+[ext_resource type="FontFile" uid="uid://bv3vqpmcdg550" path="res://assets/fonts/Angelikan-003-5.ttf" id="2_afatd"]
+[ext_resource type="Script" uid="uid://dnolnrw842m8j" path="res://scripts/auto_size_label.gd" id="3_l0htx"]
+[ext_resource type="Theme" uid="uid://cfmd2mxjuj6bq" path="res://assets/theme.tres" id="5_ysbrn"]
+[ext_resource type="Texture2D" uid="uid://dvxyhf5hp1x25" path="res://assets/testures/save_button.png" id="6_somgj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gf501"]
+bg_color = Color(0.105882354, 0.12156863, 0.12941177, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0x1ne"]
+bg_color = Color(0.16862746, 0.16862746, 0.27058825, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ehjx"]
+atlas = ExtResource("2_0x1ne")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afatd"]
+atlas = ExtResource("2_0x1ne")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_somgj"]
+resource_local_to_scene = true
+atlas = ExtResource("2_0x1ne")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0x1ne"]
+atlas = ExtResource("2_0x1ne")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysbrn"]
+atlas = ExtResource("2_0x1ne")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0htx"]
+resource_local_to_scene = true
+atlas = ExtResource("2_0x1ne")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ehjx"]
+bg_color = Color(0.105882354, 0.12156863, 0.12941177, 0.49803922)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ljr7"]
+bg_color = Color(0.16862746, 0.16862746, 0.27058825, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.105882354, 0.12156863, 0.12941177, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1vfsr"]
+bg_color = Color(0.105882354, 0.12156863, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rq61"]
+atlas = ExtResource("6_somgj")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13gof"]
+atlas = ExtResource("6_somgj")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldcmo"]
+atlas = ExtResource("6_somgj")
+region = Rect2(256, 0, 256, 256)
+
+[node name="LexEntry" type="Panel" unique_id=384268371]
+custom_minimum_size = Vector2(400, 50)
+theme = ExtResource("5_ysbrn")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gf501")
+script = ExtResource("1_ycj4g")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1417566216]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=2001983652]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1915724903]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FontPanel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=561267922]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_0x1ne")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/FontPanel" unique_id=1288895835]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 0
+
+[node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/FontPanel/ScrollContainer" unique_id=1720347013]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_afatd")
+theme_override_font_sizes/font_size = 30
+text = "gru"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_l0htx")
+metadata/_custom_type_script = "uid://dnolnrw842m8j"
+
+[node name="LiteralPanel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=67679109]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_0x1ne")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/LiteralPanel" unique_id=401828064]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 0
+
+[node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/LiteralPanel/ScrollContainer" unique_id=1803820965]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 30
+text = "gru"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+script = ExtResource("3_l0htx")
+metadata/_custom_type_script = "uid://dnolnrw842m8j"
+
+[node name="TranslatePanel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=1853961919]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_0x1ne")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/TranslatePanel" unique_id=2094299114]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 0
+
+[node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/TranslatePanel/ScrollContainer" unique_id=1829795693]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 30
+text = "Fish"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+script = ExtResource("3_l0htx")
+metadata/_custom_type_script = "uid://dnolnrw842m8j"
+
+[node name="SpeechPanel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=1531974227]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_0x1ne")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/SpeechPanel" unique_id=1444022230]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 0
+
+[node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/SpeechPanel/ScrollContainer" unique_id=38925982]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 13
+text = "Noun, Verb"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+script = ExtResource("3_l0htx")
+metadata/_custom_type_script = "uid://dnolnrw842m8j"
+
+[node name="Options" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=507711376]
+custom_minimum_size = Vector2(84, 0)
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="MarginContainer/HBoxContainer/Options" unique_id=1924742728]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="EditBtn" type="TextureButton" parent="MarginContainer/HBoxContainer/Options/Control2" unique_id=491540599]
+custom_maximum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_6ehjx")
+texture_pressed = SubResource("AtlasTexture_afatd")
+texture_hover = SubResource("AtlasTexture_somgj")
+stretch_mode = 5
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/Options" unique_id=1300747529]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="DeleteBtn" type="TextureButton" parent="MarginContainer/HBoxContainer/Options/Control" unique_id=662960082]
+custom_maximum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_0x1ne")
+texture_pressed = SubResource("AtlasTexture_ysbrn")
+texture_hover = SubResource("AtlasTexture_l0htx")
+stretch_mode = 5
+
+[node name="Menus" type="CanvasLayer" parent="." unique_id=1556726794]
+
+[node name="Panel" type="Panel" parent="Menus" unique_id=1402325803]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ehjx")
+
+[node name="CenterContainer" type="CenterContainer" parent="Menus" unique_id=2130135830]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EditMenu" type="Panel" parent="Menus/CenterContainer" unique_id=1156563650]
+custom_minimum_size = Vector2(800, 334)
+layout_mode = 2
+theme = ExtResource("5_ysbrn")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2ljr7")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/CenterContainer/EditMenu" unique_id=797519909]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/CenterContainer/EditMenu/MarginContainer" unique_id=784001012]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer" unique_id=1018084069]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2144512895]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Edit Entry"
+
+[node name="Panel" type="Panel" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=887906768]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_styles/panel = SubResource("StyleBoxFlat_1vfsr")
+
+[node name="CenterContainer2" type="CenterContainer" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/HBoxContainer2/Panel" unique_id=1749581430]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 41.0
+grow_vertical = 2
+
+[node name="SaveBtn" type="TextureButton" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/HBoxContainer2/Panel/CenterContainer2" unique_id=1535519222]
+custom_maximum_size = Vector2(41, 41)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_2rq61")
+texture_pressed = SubResource("AtlasTexture_13gof")
+texture_hover = SubResource("AtlasTexture_ldcmo")
+stretch_mode = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/HBoxContainer2/Panel" unique_id=952812630]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -41.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="CloseBtn" type="TextureButton" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/HBoxContainer2/Panel/CenterContainer" unique_id=827626950]
+custom_maximum_size = Vector2(41, 41)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_0x1ne")
+texture_pressed = SubResource("AtlasTexture_ysbrn")
+texture_hover = SubResource("AtlasTexture_l0htx")
+stretch_mode = 5
+
+[node name="HSeparator" type="HSeparator" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer" unique_id=1812053994]
+layout_mode = 2
+theme = ExtResource("5_ysbrn")
+
+[node name="Written" type="HBoxContainer" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer" unique_id=104747219]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Written" unique_id=1706163269]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Written:"
+
+[node name="TextEdit" type="TextEdit" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Written" unique_id=1460921378]
+custom_minimum_size = Vector2(600, 60)
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("5_ysbrn")
+theme_override_font_sizes/font_size = 32
+placeholder_text = "gru"
+emoji_menu_enabled = false
+draw_control_chars = true
+draw_tabs = true
+draw_spaces = true
+
+[node name="Literal" type="HBoxContainer" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer" unique_id=1715804636]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Literal" unique_id=773343274]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Literal:"
+
+[node name="TextEdit" type="TextEdit" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Literal" unique_id=512221208]
+custom_minimum_size = Vector2(600, 60)
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("5_ysbrn")
+theme_override_font_sizes/font_size = 32
+placeholder_text = "gru"
+emoji_menu_enabled = false
+draw_control_chars = true
+draw_tabs = true
+draw_spaces = true
+
+[node name="Translated" type="HBoxContainer" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer" unique_id=2141169150]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Translated" unique_id=304714230]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Translated:"
+
+[node name="TextEdit" type="TextEdit" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Translated" unique_id=1903436307]
+custom_minimum_size = Vector2(600, 60)
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("5_ysbrn")
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Fish"
+emoji_menu_enabled = false
+draw_control_chars = true
+draw_tabs = true
+draw_spaces = true
+
+[node name="Speech" type="HBoxContainer" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer" unique_id=2024042277]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Speech" unique_id=96145664]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Speech:"
+
+[node name="TextEdit" type="TextEdit" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Speech" unique_id=227573529]
+custom_minimum_size = Vector2(600, 60)
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("5_ysbrn")
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Noun, Verb"
+emoji_menu_enabled = false
+draw_control_chars = true
+draw_tabs = true
+draw_spaces = true
+
+[node name="DeleteMenu" type="Panel" parent="Menus/CenterContainer" unique_id=1274283583]
+custom_minimum_size = Vector2(300, 125)
+layout_mode = 2
+theme = ExtResource("5_ysbrn")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2ljr7")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/CenterContainer/DeleteMenu" unique_id=1914583821]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/CenterContainer/DeleteMenu/MarginContainer" unique_id=865559309]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Menus/CenterContainer/DeleteMenu/MarginContainer/VBoxContainer" unique_id=1088924124]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Are you sure?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menus/CenterContainer/DeleteMenu/MarginContainer/VBoxContainer" unique_id=1299809406]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="YesBtn" type="Button" parent="Menus/CenterContainer/DeleteMenu/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2139153696]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Yes"
+
+[node name="NoBtn" type="Button" parent="Menus/CenterContainer/DeleteMenu/MarginContainer/VBoxContainer/HBoxContainer" unique_id=834550127]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "No"

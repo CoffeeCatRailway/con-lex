@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://kmo25uolrekv"]
+
+[ext_resource type="Theme" uid="uid://cfmd2mxjuj6bq" path="res://assets/theme.tres" id="1_c0o4j"]
+[ext_resource type="Script" uid="uid://b7amfgoiw2ucr" path="res://scripts/con_lex.gd" id="1_lgss2"]
+[ext_resource type="PackedScene" uid="uid://cmkijaun62dm7" path="res://scenes/lex_entry.tscn" id="2_yms3c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ehjx"]
+bg_color = Color(0.16862746, 0.16862746, 0.27058825, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="ConLex" type="CanvasLayer" unique_id=1507004523]
+script = ExtResource("1_lgss2")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=534017348]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882354, 0.12156863, 0.12941177, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect" unique_id=8538353]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer" unique_id=441156574]
+layout_mode = 2
+
+[node name="Options" type="Panel" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=1530770394]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ehjx")
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/MarginContainer/VBoxContainer/Options" unique_id=682752468]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer" unique_id=781394932]
+layout_mode = 2
+
+[node name="NewBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer" unique_id=251842997]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme = ExtResource("1_c0o4j")
+text = "New"
+
+[node name="OpenBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer" unique_id=1086508933]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme = ExtResource("1_c0o4j")
+text = "Open"
+
+[node name="SaveBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer" unique_id=55435703]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme = ExtResource("1_c0o4j")
+text = "Save"
+
+[node name="SaveAsBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer" unique_id=1642593737]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme = ExtResource("1_c0o4j")
+text = "Save As"
+
+[node name="FindBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer" unique_id=1706596685]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme = ExtResource("1_c0o4j")
+text = "Find"
+
+[node name="Editor" type="Panel" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=1699143064]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ehjx")
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/MarginContainer/VBoxContainer/Editor" unique_id=1074595941]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer" unique_id=900546147]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LexEntry" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2" unique_id=384268371 instance=ExtResource("2_yms3c")]
+layout_mode = 2
+legend = true
+
+[node name="HSeparator" type="HSeparator" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2" unique_id=1036985925]
+layout_mode = 2
+theme = ExtResource("1_c0o4j")
+
+[node name="NewEntryBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2" unique_id=748473319]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme = ExtResource("1_c0o4j")
+text = "New Entry"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2" unique_id=718233461]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_c0o4j")
+theme_override_constants/scrollbar_h_separation = 5
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="EntryContainer" type="VBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/ScrollContainer" unique_id=1030748979]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
