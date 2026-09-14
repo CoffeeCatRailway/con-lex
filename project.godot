@@ -16,6 +16,10 @@ run/main_scene="uid://kmo25uolrekv"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalVars="*uid://dvlweu6gwe0ba"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=1

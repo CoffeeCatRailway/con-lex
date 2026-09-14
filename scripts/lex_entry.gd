@@ -1,7 +1,7 @@
 class_name LexEntry
 extends Panel
 
-@onready var fontLabel: Label = $MarginContainer/HBoxContainer/HBoxContainer/FontPanel/ScrollContainer/AutoSizeLabel
+@onready var writtenLabel: Label = $MarginContainer/HBoxContainer/HBoxContainer/FontPanel/ScrollContainer/AutoSizeLabel
 @onready var literalLabel: Label = $MarginContainer/HBoxContainer/HBoxContainer/LiteralPanel/ScrollContainer/AutoSizeLabel
 @onready var translateLabel: Label = $MarginContainer/HBoxContainer/HBoxContainer/TranslatePanel/ScrollContainer/AutoSizeLabel
 @onready var speechLabel: Label = $MarginContainer/HBoxContainer/HBoxContainer/SpeechPanel/ScrollContainer/AutoSizeLabel
@@ -14,13 +14,10 @@ extends Panel
 @onready var editMenu: Panel = $Menus/CenterContainer/EditMenu
 @onready var editSaveBtn: TextureButton = $Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/HBoxContainer2/Panel/CenterContainer2/SaveBtn
 @onready var editCloseBtn: TextureButton = $Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/HBoxContainer2/Panel/CenterContainer/CloseBtn
-#@onready var editWrittenLabel: Label = $Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Written/Label
+
 @onready var editWrittenBox: TextEdit = $Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Written/TextEdit
-#@onready var editLiteralLabel: Label = $Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Literal/Label
 @onready var editLiteralBox: TextEdit = $Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Literal/TextEdit
-#@onready var editTranslateLabel: Label = $Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Translated/Label
 @onready var editTranslateBox: TextEdit = $Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Translated/TextEdit
-#@onready var editSpeechLabel: Label = $Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Speech/Label
 @onready var editSpeechBox: TextEdit = $Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Speech/TextEdit
 
 @onready var deleteMenu: Panel = $Menus/CenterContainer/DeleteMenu
@@ -35,8 +32,8 @@ func _ready() -> void:
 	deleteMenu.visible = false
 	
 	if legend:
-		fontLabel.text = "Written"
-		fontLabel.remove_theme_font_override("font")
+		writtenLabel.text = "Written"
+		writtenLabel.remove_theme_font_override("font")
 		literalLabel.text = "Literal"
 		translateLabel.text = "Translate"
 		speechLabel.text = "Speech"
@@ -50,12 +47,15 @@ func _ready() -> void:
 	editSaveBtn.pressed.connect(onEditSavePressed)
 	editCloseBtn.pressed.connect(onEditClosePressed)
 	
+	GlobalVars.useWrittenFont.connect(onUseWrittenFont)
+	GlobalVars.updateWrittenFont.connect(onUpdateWrittenFont)
+	
 	deleteBtn.pressed.connect(onDeletePressed)
 	deleteYesBtn.pressed.connect(onDeleteYesPressed)
 	deleteNoBtn.pressed.connect(onDeleteNoPressed)
 
 func onEditPressed() -> void:
-	editWrittenBox.text = fontLabel.text
+	editWrittenBox.text = writtenLabel.text
 	editLiteralBox.text = literalLabel.text
 	editTranslateBox.text = translateLabel.text
 	editSpeechBox.text = speechLabel.text
@@ -65,7 +65,7 @@ func onEditPressed() -> void:
 	deleteMenu.visible = false
 
 func onEditSavePressed() -> void:
-	fontLabel.text = editWrittenBox.text
+	writtenLabel.text = editWrittenBox.text
 	literalLabel.text = editLiteralBox.text
 	translateLabel.text = editTranslateBox.text
 	speechLabel.text = editSpeechBox.text
@@ -75,6 +75,19 @@ func onEditSavePressed() -> void:
 func onEditClosePressed() -> void:
 	menus.visible = false
 	editMenu.visible = false
+
+func onUseWrittenFont(use: bool) -> void:
+	if use:
+		onUpdateWrittenFont()
+	else:
+		writtenLabel.remove_theme_font_override("font")
+
+func onUpdateWrittenFont() -> void:
+	if legend:
+		return
+	
+	if GlobalVars.writtenFont:
+		writtenLabel.add_theme_font_override("font", GlobalVars.writtenFont)
 
 func onDeletePressed() -> void:
 	menus.visible = true

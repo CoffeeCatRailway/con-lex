@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://du122dx1arqoe" path="res://scripts/lex_entry.gd" id="1_ycj4g"]
 [ext_resource type="Texture2D" uid="uid://cwtqtydqk0vat" path="res://assets/testures/entry_buttons.png" id="2_0x1ne"]
-[ext_resource type="FontFile" uid="uid://bv3vqpmcdg550" path="res://assets/fonts/Angelikan-003-5.ttf" id="2_afatd"]
 [ext_resource type="Script" uid="uid://dnolnrw842m8j" path="res://scripts/auto_size_label.gd" id="3_l0htx"]
 [ext_resource type="Theme" uid="uid://cfmd2mxjuj6bq" path="res://assets/theme.tres" id="5_ysbrn"]
 [ext_resource type="Texture2D" uid="uid://dvxyhf5hp1x25" path="res://assets/testures/save_button.png" id="6_somgj"]
@@ -124,7 +123,6 @@ vertical_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-theme_override_fonts/font = ExtResource("2_afatd")
 theme_override_font_sizes/font_size = 30
 text = "gru"
 horizontal_alignment = 1
@@ -249,6 +247,7 @@ texture_hover = SubResource("AtlasTexture_l0htx")
 stretch_mode = 5
 
 [node name="Menus" type="CanvasLayer" parent="." unique_id=1556726794]
+visible = false
 
 [node name="Panel" type="Panel" parent="Menus" unique_id=1402325803]
 anchors_preset = 15
@@ -264,9 +263,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("5_ysbrn")
 
 [node name="EditMenu" type="Panel" parent="Menus/CenterContainer" unique_id=1156563650]
-custom_minimum_size = Vector2(800, 334)
+custom_minimum_size = Vector2(800, 340)
 layout_mode = 2
 theme = ExtResource("5_ysbrn")
 theme_override_styles/panel = SubResource("StyleBoxFlat_2ljr7")
@@ -422,6 +422,7 @@ draw_tabs = true
 draw_spaces = true
 
 [node name="DeleteMenu" type="Panel" parent="Menus/CenterContainer" unique_id=1274283583]
+visible = false
 custom_minimum_size = Vector2(300, 125)
 layout_mode = 2
 theme = ExtResource("5_ysbrn")

@@ -1,5 +1,17 @@
 [gd_resource type="Theme" format=3 uid="uid://cfmd2mxjuj6bq"]
 
+[ext_resource type="Texture2D" uid="uid://dafimdhki7vgm" path="res://assets/testures/check_button.png" id="1_5x3i2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llqld"]
+bg_color = Color(0.105882354, 0.12156863, 0.12941177, 1)
+border_width_left = 5
+border_width_right = 5
+border_color = Color(0.105882354, 0.12156863, 0.12941177, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y61vb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y61vb"]
@@ -31,6 +43,14 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5x3i2"]
+atlas = ExtResource("1_5x3i2")
+region = Rect2(64, 0, 64, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ljr7"]
+atlas = ExtResource("1_5x3i2")
+region = Rect2(0, 0, 64, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e8htd"]
 bg_color = Color(0.22745098, 0.24705882, 0.36862746, 1)
@@ -112,11 +132,15 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [resource]
+Button/font_sizes/font_size = 24
+Button/styles/disabled = SubResource("StyleBoxFlat_llqld")
 Button/styles/focus = SubResource("StyleBoxEmpty_y61vb")
 Button/styles/hover = SubResource("StyleBoxFlat_y61vb")
 Button/styles/hover_pressed = SubResource("StyleBoxFlat_wl1kw")
 Button/styles/normal = SubResource("StyleBoxFlat_5x3i2")
 Button/styles/pressed = SubResource("StyleBoxFlat_wl1kw")
+CheckButton/icons/checked = SubResource("AtlasTexture_5x3i2")
+CheckButton/icons/unchecked = SubResource("AtlasTexture_2ljr7")
 HScrollBar/constants/padding_bottom = 5
 HScrollBar/constants/padding_top = 5
 HScrollBar/styles/grabber = SubResource("StyleBoxFlat_e8htd")
