@@ -1,6 +1,5 @@
+class_name ConLex
 extends CanvasLayer
-
-const LEX_ENTRY = preload("uid://cmkijaun62dm7")
 
 @onready var newBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/NewBtn
 @onready var openBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/OpenBtn
@@ -15,6 +14,13 @@ const LEX_ENTRY = preload("uid://cmkijaun62dm7")
 
 @onready var fileDialog: FileDialog = $FileDialog
 
+enum FileDialogUse {
+	FONT,
+	SAVE,
+	LOAD
+}
+var fileDialogUse := FileDialogUse.FONT
+
 func _ready() -> void:
 	newBtn.pressed.connect(onNewPressed)
 	openBtn.pressed.connect(onOpenPressed)
@@ -28,19 +34,36 @@ func _ready() -> void:
 	useFontBtn.toggled.connect(onUseFontPressed)
 	loadFontBtn.pressed.connect(onLoadFontPressed)
 	
-	fileDialog.file_selected.connect(onFontFileSelected)
+	fileDialog.file_selected.connect(onFileSelected)
 
 func onNewPressed() -> void:
 	pass
 
 func onOpenPressed() -> void:
-	pass
+	fileDialogUse = FileDialogUse.LOAD
+	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	fileDialog.clear_filters()
+	fileDialog.add_filter("*.conlex, *.clex", "ConLex Save")
+	fileDialog.popup_centered()
 
 func onSavePressed() -> void:
-	pass
+	fileDialogUse = FileDialogUse.SAVE
+	fileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
+	
+	# check if file was already saved
+	if GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
+		fileDialog.clear_filters()
+		fileDialog.add_filter("*.conlex, *.clex", "ConLex Save")
+		fileDialog.popup_centered()
+	else:
+		onFileSelected(GlobalVars.currentSavePath)
 
 func onSaveAsPressed() -> void:
-	pass
+	fileDialogUse = FileDialogUse.SAVE
+	fileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
+	fileDialog.clear_filters()
+	fileDialog.add_filter("*.conlex, *.clex", "ConLex Save")
+	fileDialog.popup_centered()
 
 func onFindPressed() -> void:
 	pass
@@ -50,16 +73,36 @@ func clearEntries() -> void:
 		entry.queue_free()
 
 func onNewEntryPressed() -> void:
-	var entry := LEX_ENTRY.instantiate()
+	var entry: LexEntry = GlobalVars.LEX_ENTRY.instantiate()
+	entry.id = GlobalVars.getNextId()
 	entryContainer.add_child(entry)
+	
+	SaveData.entries[entry.id] = entry.toSaveEntry()
 
 func onUseFontPressed(toggled: bool) -> void:
 	loadFontBtn.disabled = !toggled
-	GlobalVars.useWrittenFont.emit(toggled)
+	GlobalVars.useWrittenFont = toggled
+	SaveData.useWrittenFont = toggled
+	GlobalVars.updateWrittenFont.emit()
 
 func onLoadFontPressed() -> void:
+	fileDialogUse = FileDialogUse.FONT
+	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	fileDialog.clear_filters()
+	fileDialog.add_filter("*.ttf", "True Type Font")
 	fileDialog.popup_centered()
 
-func onFontFileSelected(path: String) -> void:
-	GlobalVars.writtenFont = load(path)
-	GlobalVars.updateWrittenFont.emit()
+func onFileSelected(path: String) -> void:
+	match fileDialogUse:
+		FileDialogUse.FONT:
+			GlobalVars.writtenFont = load(path)
+			SaveData.writtenFontPath = path
+			GlobalVars.updateWrittenFont.emit()
+		FileDialogUse.SAVE:
+			if GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
+				GlobalVars.currentSavePath = path
+			SaveData.saveTo(GlobalVars.currentSavePath)
+		FileDialogUse.LOAD:
+			SaveData.loadFrom(path, self)
+		_:
+			push_warning("File dialog was used in unknown mode!")

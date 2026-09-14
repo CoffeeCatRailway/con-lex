@@ -127,6 +127,7 @@ theme_override_font_sizes/font_size = 30
 text = "gru"
 horizontal_alignment = 1
 vertical_alignment = 1
+clip_text = true
 script = ExtResource("3_l0htx")
 metadata/_custom_type_script = "uid://dnolnrw842m8j"
 
@@ -247,6 +248,7 @@ texture_hover = SubResource("AtlasTexture_l0htx")
 stretch_mode = 5
 
 [node name="Menus" type="CanvasLayer" parent="." unique_id=1556726794]
+layer = 2
 visible = false
 
 [node name="Panel" type="Panel" parent="Menus" unique_id=1402325803]

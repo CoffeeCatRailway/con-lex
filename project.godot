@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalVars="*uid://dvlweu6gwe0ba"
+SaveData="*uid://bmkphd2oc24ub"
 
 [debug]
 

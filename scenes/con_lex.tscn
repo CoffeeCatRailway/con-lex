@@ -158,6 +158,7 @@ size_flags_vertical = 3
 [node name="FileDialog" type="FileDialog" parent="." unique_id=802561375]
 oversampling_override = 1.0
 title = "Open a File"
+size = Vector2i(800, 450)
 force_native = true
 file_mode = 0
 access = 2

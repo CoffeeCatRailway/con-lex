@@ -26,6 +26,8 @@ extends Panel
 
 @export var legend: bool = false
 
+var id: int = -1
+
 func _ready() -> void:
 	menus.visible = false
 	editMenu.visible = false
@@ -47,12 +49,27 @@ func _ready() -> void:
 	editSaveBtn.pressed.connect(onEditSavePressed)
 	editCloseBtn.pressed.connect(onEditClosePressed)
 	
-	GlobalVars.useWrittenFont.connect(onUseWrittenFont)
 	GlobalVars.updateWrittenFont.connect(onUpdateWrittenFont)
+	onUpdateWrittenFont()
 	
 	deleteBtn.pressed.connect(onDeletePressed)
 	deleteYesBtn.pressed.connect(onDeleteYesPressed)
 	deleteNoBtn.pressed.connect(onDeleteNoPressed)
+
+func toSaveEntry() -> SaveData.SaveEntry:
+	var entry := SaveData.SaveEntry.new()
+	entry.written = writtenLabel.text
+	entry.literal = literalLabel.text
+	entry.translate = translateLabel.text
+	entry.speech = speechLabel.text
+	return entry
+
+func updateSaveEntry() -> void:
+	var entry := SaveData.entries[id]
+	entry.written = writtenLabel.text
+	entry.literal = literalLabel.text
+	entry.translate = translateLabel.text
+	entry.speech = speechLabel.text
 
 func onEditPressed() -> void:
 	editWrittenBox.text = writtenLabel.text
@@ -70,24 +87,21 @@ func onEditSavePressed() -> void:
 	translateLabel.text = editTranslateBox.text
 	speechLabel.text = editSpeechBox.text
 	
+	updateSaveEntry()
 	onEditClosePressed()
 
 func onEditClosePressed() -> void:
 	menus.visible = false
 	editMenu.visible = false
 
-func onUseWrittenFont(use: bool) -> void:
-	if use:
-		onUpdateWrittenFont()
-	else:
-		writtenLabel.remove_theme_font_override("font")
-
 func onUpdateWrittenFont() -> void:
 	if legend:
 		return
 	
-	if GlobalVars.writtenFont:
+	if GlobalVars.useWrittenFont && GlobalVars.writtenFont:
 		writtenLabel.add_theme_font_override("font", GlobalVars.writtenFont)
+	else:
+		writtenLabel.remove_theme_font_override("font")
 
 func onDeletePressed() -> void:
 	menus.visible = true
@@ -95,6 +109,7 @@ func onDeletePressed() -> void:
 	deleteMenu.visible = true
 
 func onDeleteYesPressed() -> void:
+	SaveData.entries.erase(id)
 	queue_free()
 
 func onDeleteNoPressed() -> void:
