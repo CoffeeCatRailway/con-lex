@@ -119,7 +119,7 @@ func onLoadFontPressed() -> void:
 func onFileSelected(path: String) -> void:
 	match fileDialogUse:
 		FileDialogUse.FONT:
-			GlobalVars.writtenFont = load(path)
+			GlobalVars.writtenFont = GlobalVars.loadFont(path)
 			SaveData.writtenFontPath = path
 			GlobalVars.updateWrittenFont.emit()
 		FileDialogUse.SAVE:

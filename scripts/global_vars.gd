@@ -32,3 +32,8 @@ func getNextId() -> int:
 	var id := _currentId
 	_currentId += 1
 	return id
+
+func loadFont(path: String) -> Font:
+	var font := FontFile.new()
+	font.load_dynamic_font(path)
+	return font
