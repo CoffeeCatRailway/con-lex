@@ -55,40 +55,63 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer" unique_id=781394932]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer" unique_id=1811084936]
 layout_mode = 2
 
-[node name="NewBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer" unique_id=251842997]
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2" unique_id=781394932]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="NewBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer" unique_id=251842997]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 theme = ExtResource("1_c0o4j")
 disabled = true
 text = "New"
 
-[node name="OpenBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer" unique_id=1086508933]
+[node name="OpenBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer" unique_id=1086508933]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 theme = ExtResource("1_c0o4j")
 text = "Open"
 
-[node name="SaveBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer" unique_id=55435703]
+[node name="SaveBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer" unique_id=55435703]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 theme = ExtResource("1_c0o4j")
 text = "Save"
 
-[node name="SaveAsBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer" unique_id=1642593737]
+[node name="SaveAsBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer" unique_id=1642593737]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 theme = ExtResource("1_c0o4j")
 text = "Save As"
 
-[node name="FindBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer" unique_id=1706596685]
+[node name="FindBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer" unique_id=1706596685]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 theme = ExtResource("1_c0o4j")
 disabled = true
 text = "Find"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2" unique_id=919784746]
+layout_mode = 2
+size_flags_horizontal = 10
+alignment = 2
+
+[node name="WebLabel" type="Label" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer2" unique_id=47384368]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Written font unsupported on web build"
+
+[node name="Control" type="Control" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer2" unique_id=259211784]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="VersionLabel" type="Label" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer2" unique_id=669418056]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ConLex v0.0"
 
 [node name="Editor" type="Panel" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=1699143064]
 layout_mode = 2

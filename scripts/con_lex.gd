@@ -1,11 +1,14 @@
 class_name ConLex
 extends CanvasLayer
 
-@onready var newBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/NewBtn
-@onready var openBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/OpenBtn
-@onready var saveBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/SaveBtn
-@onready var saveAsBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/SaveAsBtn
-@onready var findBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/FindBtn
+@onready var newBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/NewBtn
+@onready var openBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/OpenBtn
+@onready var saveBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/SaveBtn
+@onready var saveAsBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/SaveAsBtn
+@onready var findBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/FindBtn
+
+@onready var webLabel: Label = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer2/WebLabel
+@onready var versionLabel: Label = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer2/VersionLabel
 
 @onready var entryContainer: VBoxContainer = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/ScrollContainer/EntryContainer
 @onready var newEntryBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/NewEntryBtn
@@ -26,10 +29,16 @@ func _ready() -> void:
 		saveAsBtn.disabled = true
 		saveAsBtn.visible = false
 		
+		webLabel.visible = true
+		
 		useFontBtn.disabled = true
 		useFontBtn.visible = false
 		loadFontBtn.disabled = true
 		loadFontBtn.visible = false
+	else:
+		webLabel.visible = false
+	
+	versionLabel.text = "ConLex v%s %s" % [ProjectSettings.get_setting("application/config/version"), OS.get_name()]
 	
 	newBtn.pressed.connect(onNewPressed)
 	openBtn.pressed.connect(onOpenPressed)
