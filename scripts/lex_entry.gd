@@ -95,7 +95,7 @@ func onEditClosePressed() -> void:
 	editMenu.visible = false
 
 func onUpdateWrittenFont() -> void:
-	if legend:
+	if legend || OS.get_name() == "Web":
 		return
 	
 	if GlobalVars.useWrittenFont && GlobalVars.writtenFont:

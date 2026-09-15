@@ -18,9 +18,8 @@ var entries: Dictionary[int, SaveEntry] = {}
 	#if Input.is_action_just_pressed("ui_down"):
 		#saveTo("user://test_save.json")
 
-func saveTo(path: String) -> void:
+func saveTo(path: String, webBuild: bool) -> void:
 	print("Saving to (%s)" % path)
-	var file := FileAccess.open(path, FileAccess.WRITE)
 	var data: Dictionary = {
 		"useWrittenFont": useWrittenFont,
 		"writtenFontPath": writtenFontPath,
@@ -38,18 +37,29 @@ func saveTo(path: String) -> void:
 	
 	var json := JSON.stringify(data, "\t")
 	#print(json)
-	file.store_line(json)
-
-func loadFrom(path: String, conLex: ConLex) -> void:
-	if !FileAccess.file_exists(path):
-		push_warning("Save file (%s) does not exist!" % path)
-		return
 	
+	if webBuild:
+		JavaScriptBridge.download_buffer(json.to_utf8_buffer(), path, "application/x.conlex.clex")
+	else:
+		var file := FileAccess.open(path, FileAccess.WRITE)
+		file.store_line(json)
+
+func loadFrom(path: String, conLex: ConLex, webBuild: bool, webData: String = "") -> void:
 	print("Loading from (%s)" % path)
-	var file := FileAccess.open(path, FileAccess.READ)
+	var data: String
+	if webBuild:
+		data = webData
+	else:
+		if !FileAccess.file_exists(path):
+			push_warning("Save file (%s) does not exist!" % path)
+			return
+		
+		var file := FileAccess.open(path, FileAccess.READ)
+		data = file.get_as_text()
+		GlobalVars.currentSavePath = path
 	
 	var json := JSON.new()
-	if json.parse(file.get_as_text()) != OK:
+	if json.parse(data) != OK:
 		printerr("JSON Parse Error: %s at line %s" % [json.get_error_message(), json.get_error_line()])
 		return
 	
@@ -60,8 +70,9 @@ func loadFrom(path: String, conLex: ConLex) -> void:
 	self.useWrittenFont = json.data["useWrittenFont"]
 	self.writtenFontPath = json.data["writtenFontPath"]
 	GlobalVars.useWrittenFont = self.useWrittenFont
-	GlobalVars.writtenFont = load(self.writtenFontPath)
-	conLex.useFontBtn.button_pressed = self.useWrittenFont
+	if !webBuild: # Don't load fonts on web
+		GlobalVars.writtenFont = load(self.writtenFontPath)
+		conLex.useFontBtn.button_pressed = self.useWrittenFont
 	
 	self.entries.clear()
 	conLex.clearEntries()
@@ -89,5 +100,5 @@ func loadFrom(path: String, conLex: ConLex) -> void:
 		entry.speechLabel.text = saveEntry.speech
 	
 	GlobalVars._currentId = maxId + 1
-	GlobalVars.updateWrittenFont.emit()
-	GlobalVars.currentSavePath = path
+	if !webBuild: # Don't load fonts on web
+		GlobalVars.updateWrittenFont.emit()

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dafimdhki7vgm"
-path="res://.godot/imported/check_button.png-5ee42f4e5d4519a46a3c9e870dcbbc44.ctex"
+uid="uid://cwtqtydqk0vat"
+path="res://.godot/imported/entry_buttons.png-456688fb6f0ff78db06b59d6623467d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/testures/check_button.png"
-dest_files=["res://.godot/imported/check_button.png-5ee42f4e5d4519a46a3c9e870dcbbc44.ctex"]
+source_file="res://assets/textures/entry_buttons.png"
+dest_files=["res://.godot/imported/entry_buttons.png-456688fb6f0ff78db06b59d6623467d3.ctex"]
 
 [params]
 

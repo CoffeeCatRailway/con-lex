@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cmkijaun62dm7"]
 
 [ext_resource type="Script" uid="uid://du122dx1arqoe" path="res://scripts/lex_entry.gd" id="1_ycj4g"]
-[ext_resource type="Texture2D" uid="uid://cwtqtydqk0vat" path="res://assets/testures/entry_buttons.png" id="2_0x1ne"]
+[ext_resource type="Texture2D" uid="uid://cwtqtydqk0vat" path="res://assets/textures/entry_buttons.png" id="2_0x1ne"]
 [ext_resource type="Script" uid="uid://dnolnrw842m8j" path="res://scripts/auto_size_label.gd" id="3_l0htx"]
 [ext_resource type="Theme" uid="uid://cfmd2mxjuj6bq" path="res://assets/theme.tres" id="5_ysbrn"]
-[ext_resource type="Texture2D" uid="uid://dvxyhf5hp1x25" path="res://assets/testures/save_button.png" id="6_somgj"]
+[ext_resource type="Texture2D" uid="uid://dvxyhf5hp1x25" path="res://assets/textures/save_button.png" id="6_somgj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gf501"]
 bg_color = Color(0.105882354, 0.12156863, 0.12941177, 1)
@@ -124,7 +124,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 30
-text = "gru"
 horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
@@ -150,7 +149,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 30
-text = "gru"
 horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
@@ -176,7 +174,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 30
-text = "Fish"
 horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
@@ -201,8 +198,7 @@ vertical_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 13
-text = "Noun, Verb"
+theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
@@ -397,7 +393,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 theme = ExtResource("5_ysbrn")
 theme_override_font_sizes/font_size = 32
-placeholder_text = "Fish"
+placeholder_text = "fish"
 emoji_menu_enabled = false
 draw_control_chars = true
 draw_tabs = true
@@ -417,7 +413,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 theme = ExtResource("5_ysbrn")
 theme_override_font_sizes/font_size = 32
-placeholder_text = "Noun, Verb"
+placeholder_text = "noun, verb"
 emoji_menu_enabled = false
 draw_control_chars = true
 draw_tabs = true

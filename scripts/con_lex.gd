@@ -22,6 +22,15 @@ enum FileDialogUse {
 var fileDialogUse := FileDialogUse.FONT
 
 func _ready() -> void:
+	if OS.get_name() == "Web":
+		saveAsBtn.disabled = true
+		saveAsBtn.visible = false
+		
+		useFontBtn.disabled = true
+		useFontBtn.visible = false
+		loadFontBtn.disabled = true
+		loadFontBtn.visible = false
+	
 	newBtn.pressed.connect(onNewPressed)
 	openBtn.pressed.connect(onOpenPressed)
 	saveBtn.pressed.connect(onSavePressed)
@@ -40,23 +49,29 @@ func onNewPressed() -> void:
 	pass
 
 func onOpenPressed() -> void:
-	fileDialogUse = FileDialogUse.LOAD
-	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	fileDialog.clear_filters()
-	fileDialog.add_filter("*.conlex, *.clex", "ConLex Save")
-	fileDialog.popup_centered()
+	if OS.get_name() == "Web":
+		GlobalVars.webFileUpload(".clex, .conlex")
+	else:
+		fileDialogUse = FileDialogUse.LOAD
+		fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+		fileDialog.clear_filters()
+		fileDialog.add_filter("*.clex, *.conlex", "ConLex Save")
+		fileDialog.popup_centered()
 
 func onSavePressed() -> void:
-	fileDialogUse = FileDialogUse.SAVE
-	fileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
-	
-	# check if file was already saved
-	if GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
-		fileDialog.clear_filters()
-		fileDialog.add_filter("*.conlex, *.clex", "ConLex Save")
-		fileDialog.popup_centered()
+	if OS.get_name() == "Web":
+		SaveData.saveTo("conlex.clex", true)
 	else:
-		onFileSelected(GlobalVars.currentSavePath)
+		fileDialogUse = FileDialogUse.SAVE
+		fileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
+		
+		# check if file was already saved
+		if GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
+			fileDialog.clear_filters()
+			fileDialog.add_filter("*.conlex, *.clex", "ConLex Save")
+			fileDialog.popup_centered()
+		else:
+			onFileSelected(GlobalVars.currentSavePath)
 
 func onSaveAsPressed() -> void:
 	fileDialogUse = FileDialogUse.SAVE
@@ -101,8 +116,8 @@ func onFileSelected(path: String) -> void:
 		FileDialogUse.SAVE:
 			if GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
 				GlobalVars.currentSavePath = path
-			SaveData.saveTo(GlobalVars.currentSavePath)
+			SaveData.saveTo(GlobalVars.currentSavePath, false)
 		FileDialogUse.LOAD:
-			SaveData.loadFrom(path, self)
+			SaveData.loadFrom(path, self, false)
 		_:
 			push_warning("File dialog was used in unknown mode!")

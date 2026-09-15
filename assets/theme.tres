@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://cfmd2mxjuj6bq"]
 
-[ext_resource type="Texture2D" uid="uid://dafimdhki7vgm" path="res://assets/testures/check_button.png" id="1_5x3i2"]
+[ext_resource type="Texture2D" uid="uid://dafimdhki7vgm" path="res://assets/textures/check_button.png" id="1_5x3i2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llqld"]
 bg_color = Color(0.105882354, 0.12156863, 0.12941177, 1)
