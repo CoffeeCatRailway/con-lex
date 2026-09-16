@@ -155,7 +155,7 @@ text = "New Entry"
 
 [node name="SortBtn" type="MenuButton" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer" unique_id=1916593993]
 layout_mode = 2
-text = "SortMenu"
+text = "Sort"
 flat = false
 item_count = 4
 popup/item_0/text = "Written"
