@@ -251,6 +251,7 @@ stretch_mode = 5
 
 [node name="Menus" type="CanvasLayer" parent="." unique_id=1556726794]
 layer = 2
+visible = false
 
 [node name="Panel" type="Panel" parent="Menus" unique_id=1402325803]
 anchors_preset = 15
