@@ -2,7 +2,7 @@
 	"entries": {
 		"0": {
 			"literal": "bga",
-			"speech": "",
+			"speech": 0,
 			"translate": "",
 			"written": "bga"
 		}

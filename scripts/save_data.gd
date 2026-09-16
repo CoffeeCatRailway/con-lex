@@ -11,11 +11,17 @@ func saveTo(path: String, conlex: ConLex, webBuild: bool) -> void:
 	
 	var entries := conlex.entryContainer.get_children()
 	for entry: LexEntry in entries:
+		var speech: int = 0
+		for i in range(entry.speechContainer.get_children().size()):
+			if entry.speechContainer.get_child(i).visible:
+				speech |= 1 << i
+		
 		data["entries"][entry.id] = {
 			"written": entry.writtenLabel.text,
 			"literal": entry.literalLabel.text,
 			"translate": entry.translateLabel.text,
-			"speech": entry.speechLabel.text
+			#"speech": entry.speechLabel.text
+			"speech": speech
 		}
 	
 	var json := JSON.stringify(data, "\t")
@@ -71,7 +77,12 @@ func loadFrom(path: String, conLex: ConLex, webBuild: bool, webData: String = ""
 		entry.writtenLabel.text = entryData["written"]
 		entry.literalLabel.text = entryData["literal"]
 		entry.translateLabel.text = entryData["translate"]
-		entry.speechLabel.text = entryData["speech"]
+		#entry.speechLabel.text = entryData["speech"]
+		
+		var speech: int = int(entryData["speech"])
+		for i in range(entry.speechContainer.get_children().size()):
+			entry.speechContainer.get_child(i).visible = speech & 1 << i != 0
+			#print(entry.speechContainer.get_child(i).visible)
 	
 	GlobalVars._currentId = maxId + 1
 	if !webBuild: # Don't load fonts on web

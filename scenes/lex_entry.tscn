@@ -105,21 +105,20 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FontPanel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=561267922]
+[node name="WrittenContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=1492377257]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer/WrittenContainer" unique_id=561267922]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_0x1ne")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/FontPanel" unique_id=1288895835]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/WrittenContainer" unique_id=1288895835]
+layout_mode = 2
 vertical_scroll_mode = 0
 
-[node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/FontPanel/ScrollContainer" unique_id=1720347013]
+[node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/WrittenContainer/ScrollContainer" unique_id=1720347013]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -127,25 +126,22 @@ theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_l0htx")
-min_font_size = 15
-max_font_size = 25
 metadata/_custom_type_script = "uid://dnolnrw842m8j"
 
-[node name="LiteralPanel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=67679109]
+[node name="LiteralContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=1986241682]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer/LiteralContainer" unique_id=67679109]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_0x1ne")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/LiteralPanel" unique_id=401828064]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/LiteralContainer" unique_id=401828064]
+layout_mode = 2
 vertical_scroll_mode = 0
 
-[node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/LiteralPanel/ScrollContainer" unique_id=1803820965]
+[node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/LiteralContainer/ScrollContainer" unique_id=1803820965]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -153,25 +149,22 @@ theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_l0htx")
-min_font_size = 15
-max_font_size = 25
 metadata/_custom_type_script = "uid://dnolnrw842m8j"
 
-[node name="TranslatePanel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=1853961919]
+[node name="TranslateContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=394818052]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer/TranslateContainer" unique_id=1853961919]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_0x1ne")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/TranslatePanel" unique_id=2094299114]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/TranslateContainer" unique_id=2094299114]
+layout_mode = 2
 vertical_scroll_mode = 0
 
-[node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/TranslatePanel/ScrollContainer" unique_id=1829795693]
+[node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/TranslateContainer/ScrollContainer" unique_id=1829795693]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -179,35 +172,44 @@ theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_l0htx")
-min_font_size = 15
-max_font_size = 25
 metadata/_custom_type_script = "uid://dnolnrw842m8j"
 
-[node name="SpeechPanel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=1531974227]
+[node name="SpeechContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=1501426521]
+custom_maximum_size = Vector2(200, -1)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer/SpeechContainer" unique_id=1531974227]
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0x1ne")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/SpeechPanel" unique_id=1444022230]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-vertical_scroll_mode = 0
-
-[node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/SpeechPanel/ScrollContainer" unique_id=38925982]
+[node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/SpeechContainer" unique_id=38925982]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 21
+text = "Speech"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_l0htx")
-min_font_size = 15
-max_font_size = 25
 metadata/_custom_type_script = "uid://dnolnrw842m8j"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/SpeechContainer" unique_id=172300464]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/SpeechContainer/MarginContainer" unique_id=1444022230]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/SpeechContainer/MarginContainer/ScrollContainer" unique_id=674416610]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Options" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=507711376]
 custom_minimum_size = Vector2(84, 0)
@@ -249,7 +251,6 @@ stretch_mode = 5
 
 [node name="Menus" type="CanvasLayer" parent="." unique_id=1556726794]
 layer = 2
-visible = false
 
 [node name="Panel" type="Panel" parent="Menus" unique_id=1402325803]
 anchors_preset = 15
@@ -352,7 +353,7 @@ theme_override_font_sizes/font_size = 32
 text = "Written:"
 
 [node name="TextEdit" type="TextEdit" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Written" unique_id=1460921378]
-custom_minimum_size = Vector2(600, 60)
+custom_minimum_size = Vector2(500, 60)
 layout_mode = 2
 size_flags_horizontal = 10
 theme = ExtResource("5_ysbrn")
@@ -372,7 +373,7 @@ theme_override_font_sizes/font_size = 32
 text = "Literal:"
 
 [node name="TextEdit" type="TextEdit" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Literal" unique_id=512221208]
-custom_minimum_size = Vector2(600, 60)
+custom_minimum_size = Vector2(500, 60)
 layout_mode = 2
 size_flags_horizontal = 10
 theme = ExtResource("5_ysbrn")
@@ -392,7 +393,7 @@ theme_override_font_sizes/font_size = 32
 text = "Translated:"
 
 [node name="TextEdit" type="TextEdit" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Translated" unique_id=1903436307]
-custom_minimum_size = Vector2(600, 60)
+custom_minimum_size = Vector2(500, 60)
 layout_mode = 2
 size_flags_horizontal = 10
 theme = ExtResource("5_ysbrn")
@@ -409,19 +410,14 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Speech" unique_id=96145664]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Speech:"
+text = "Parts of Speech:"
 
-[node name="TextEdit" type="TextEdit" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Speech" unique_id=227573529]
-custom_minimum_size = Vector2(600, 60)
+[node name="MenuButton" type="MenuButton" parent="Menus/CenterContainer/EditMenu/MarginContainer/VBoxContainer/Speech" unique_id=1608239347]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 10
-theme = ExtResource("5_ysbrn")
-theme_override_font_sizes/font_size = 32
-placeholder_text = "noun, verb"
-emoji_menu_enabled = false
-draw_control_chars = true
-draw_tabs = true
-draw_spaces = true
+text = "Select"
+flat = false
 
 [node name="DeleteMenu" type="Panel" parent="Menus/CenterContainer" unique_id=1274283583]
 visible = false

@@ -2,30 +2,30 @@
 	"entries": {
 		"0": {
 			"literal": "b",
-			"speech": "d",
+			"speech": 16383,
 			"translate": "c",
 			"written": "a"
 		},
 		"1": {
 			"literal": "c",
-			"speech": "a",
+			"speech": 0,
 			"translate": "d",
 			"written": "b"
 		},
 		"2": {
 			"literal": "d",
-			"speech": "b",
+			"speech": 1,
 			"translate": "a",
 			"written": "c"
 		},
 		"3": {
 			"literal": "a",
-			"speech": "c",
+			"speech": 2,
 			"translate": "b",
 			"written": "d"
 		}
 	},
-	"sortOption": 1,
+	"sortOption": 0,
 	"useWrittenFont": false,
 	"writtenFontPath": ""
 }

@@ -19,6 +19,23 @@ enum SortOption {
 }
 var sortOption := SortOption.NONE
 
+enum POS {
+	ADJECTIVE,
+	ADVERB,
+	ARTICLE,
+	AUXILIARY_VERB,
+	CONJUNCTION,
+	COVERB,
+	DETERMINER,
+	INTERJECTION,
+	NOUN,
+	NUMERAL,
+	PARTICLE,
+	PREVERB,
+	PRONOUN,
+	VERB,
+}
+
 var _onWebFileLoadedCallback: JavaScriptObject = null
 var _currentId: int = 0
 
