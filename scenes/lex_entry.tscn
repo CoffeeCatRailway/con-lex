@@ -122,12 +122,13 @@ vertical_scroll_mode = 0
 [node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/FontPanel/ScrollContainer" unique_id=1720347013]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 30
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 vertical_alignment = 1
-clip_text = true
 script = ExtResource("3_l0htx")
+min_font_size = 15
+max_font_size = 25
 metadata/_custom_type_script = "uid://dnolnrw842m8j"
 
 [node name="LiteralPanel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=67679109]
@@ -147,12 +148,13 @@ vertical_scroll_mode = 0
 [node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/LiteralPanel/ScrollContainer" unique_id=1803820965]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 30
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 vertical_alignment = 1
-clip_text = true
 script = ExtResource("3_l0htx")
+min_font_size = 15
+max_font_size = 25
 metadata/_custom_type_script = "uid://dnolnrw842m8j"
 
 [node name="TranslatePanel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=1853961919]
@@ -172,12 +174,13 @@ vertical_scroll_mode = 0
 [node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/TranslatePanel/ScrollContainer" unique_id=1829795693]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 30
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 vertical_alignment = 1
-clip_text = true
 script = ExtResource("3_l0htx")
+min_font_size = 15
+max_font_size = 25
 metadata/_custom_type_script = "uid://dnolnrw842m8j"
 
 [node name="SpeechPanel" type="Panel" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=1531974227]
@@ -197,12 +200,13 @@ vertical_scroll_mode = 0
 [node name="AutoSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/SpeechPanel/ScrollContainer" unique_id=38925982]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 30
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 vertical_alignment = 1
-clip_text = true
 script = ExtResource("3_l0htx")
+min_font_size = 15
+max_font_size = 25
 metadata/_custom_type_script = "uid://dnolnrw842m8j"
 
 [node name="Options" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=507711376]
