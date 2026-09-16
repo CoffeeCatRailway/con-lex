@@ -70,7 +70,7 @@ func loadFrom(path: String, conLex: ConLex, webBuild: bool, webData: String = ""
 	self.useWrittenFont = json.data["useWrittenFont"]
 	self.writtenFontPath = json.data["writtenFontPath"]
 	GlobalVars.useWrittenFont = self.useWrittenFont
-	if !webBuild: # Don't load fonts on web
+	if !webBuild && self.useWrittenFont: # Don't load fonts on web
 		GlobalVars.writtenFont = GlobalVars.loadFont(self.writtenFontPath)
 		conLex.useFontBtn.button_pressed = self.useWrittenFont
 	
