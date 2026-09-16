@@ -1,0 +1,31 @@
+{
+	"entries": {
+		"0": {
+			"literal": "b",
+			"speech": "d",
+			"translate": "c",
+			"written": "a"
+		},
+		"1": {
+			"literal": "c",
+			"speech": "a",
+			"translate": "d",
+			"written": "b"
+		},
+		"2": {
+			"literal": "d",
+			"speech": "b",
+			"translate": "a",
+			"written": "c"
+		},
+		"3": {
+			"literal": "a",
+			"speech": "c",
+			"translate": "b",
+			"written": "d"
+		}
+	},
+	"sortOption": 1,
+	"useWrittenFont": false,
+	"writtenFontPath": ""
+}

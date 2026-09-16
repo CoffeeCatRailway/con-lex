@@ -26,7 +26,7 @@ extends Panel
 
 @export var legend: bool = false
 
-var id: int = -1
+var id: String = "0"
 
 func _ready() -> void:
 	menus.visible = false
@@ -56,21 +56,6 @@ func _ready() -> void:
 	deleteYesBtn.pressed.connect(onDeleteYesPressed)
 	deleteNoBtn.pressed.connect(onDeleteNoPressed)
 
-func toSaveEntry() -> SaveData.SaveEntry:
-	var entry := SaveData.SaveEntry.new()
-	entry.written = writtenLabel.text
-	entry.literal = literalLabel.text
-	entry.translate = translateLabel.text
-	entry.speech = speechLabel.text
-	return entry
-
-func updateSaveEntry() -> void:
-	var entry := SaveData.entries[id]
-	entry.written = writtenLabel.text
-	entry.literal = literalLabel.text
-	entry.translate = translateLabel.text
-	entry.speech = speechLabel.text
-
 func onEditPressed() -> void:
 	editWrittenBox.text = writtenLabel.text
 	editLiteralBox.text = literalLabel.text
@@ -87,7 +72,6 @@ func onEditSavePressed() -> void:
 	translateLabel.text = editTranslateBox.text
 	speechLabel.text = editSpeechBox.text
 	
-	updateSaveEntry()
 	onEditClosePressed()
 
 func onEditClosePressed() -> void:

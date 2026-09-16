@@ -1,38 +1,21 @@
 extends Node
 
-var useWrittenFont: bool = false
-var writtenFontPath: String = ""
-
-class SaveEntry:
-	var written: String = ""
-	var literal: String = ""
-	var translate: String = ""
-	var speech: String = ""
-	
-	func _to_string() -> String:
-		return "SaveEntry: [\"%s\", \"%s\", \"%s\", \"%s\"]" % [written, literal, translate, speech]
-
-var entries: Dictionary[int, SaveEntry] = {}
-
-#func _process(_delta: float) -> void:
-	#if Input.is_action_just_pressed("ui_down"):
-		#saveTo("user://test_save.json")
-
-func saveTo(path: String, webBuild: bool) -> void:
+func saveTo(path: String, conlex: ConLex, webBuild: bool) -> void:
 	print("Saving to (%s)" % path)
 	var data: Dictionary = {
-		"useWrittenFont": useWrittenFont,
-		"writtenFontPath": writtenFontPath,
+		"useWrittenFont": GlobalVars.useWrittenFont,
+		"writtenFontPath": GlobalVars.writtenFontPath,
+		"sortOption": int(GlobalVars.sortOption),
 		"entries": {}
 	}
 	
-	for entryId in entries:
-		var entry := entries[entryId]
-		data["entries"][str(entryId)] = {
-			"written": entry.written,
-			"literal": entry.literal,
-			"translate": entry.translate,
-			"speech": entry.speech
+	var entries := conlex.entryContainer.get_children()
+	for entry: LexEntry in entries:
+		data["entries"][entry.id] = {
+			"written": entry.writtenLabel.text,
+			"literal": entry.literalLabel.text,
+			"translate": entry.translateLabel.text,
+			"speech": entry.speechLabel.text
 		}
 	
 	var json := JSON.stringify(data, "\t")
@@ -67,38 +50,32 @@ func loadFrom(path: String, conLex: ConLex, webBuild: bool, webData: String = ""
 		printerr("File formatted incorrectly!")
 		return
 	
-	self.useWrittenFont = json.data["useWrittenFont"]
-	self.writtenFontPath = json.data["writtenFontPath"]
-	GlobalVars.useWrittenFont = self.useWrittenFont
-	if !webBuild && self.useWrittenFont: # Don't load fonts on web
-		GlobalVars.writtenFont = GlobalVars.loadFont(self.writtenFontPath)
-		conLex.useFontBtn.button_pressed = self.useWrittenFont
+	GlobalVars.useWrittenFont = json.data["useWrittenFont"]
+	GlobalVars.writtenFontPath = json.data["writtenFontPath"]
+	if !webBuild && GlobalVars.useWrittenFont: # Don't load fonts on web
+		GlobalVars.writtenFont = GlobalVars.loadFont(GlobalVars.writtenFontPath)
+		conLex.useFontBtn.button_pressed = GlobalVars.useWrittenFont
 	
-	self.entries.clear()
 	conLex.clearEntries()
 	
 	@warning_ignore("shadowed_variable")
 	var entries: Dictionary = json.data["entries"]
 	var maxId: int = -1
 	for id: String in entries:
-		var saveEntry := SaveEntry.new()
-		saveEntry.written = entries[id]["written"]
-		saveEntry.literal = entries[id]["literal"]
-		saveEntry.translate = entries[id]["translate"]
-		saveEntry.speech = entries[id]["speech"]
-		self.entries[int(id)] = saveEntry
-		
 		maxId = maxi(maxId, int(id))
 		var entry: LexEntry = GlobalVars.LEX_ENTRY.instantiate()
-		
-		entry.id = int(id)
-		
 		conLex.entryContainer.add_child(entry)
-		entry.writtenLabel.text = saveEntry.written
-		entry.literalLabel.text = saveEntry.literal
-		entry.translateLabel.text = saveEntry.translate
-		entry.speechLabel.text = saveEntry.speech
+		entry.id = id
+		
+		var entryData: Dictionary = entries[id]
+		entry.writtenLabel.text = entryData["written"]
+		entry.literalLabel.text = entryData["literal"]
+		entry.translateLabel.text = entryData["translate"]
+		entry.speechLabel.text = entryData["speech"]
 	
 	GlobalVars._currentId = maxId + 1
 	if !webBuild: # Don't load fonts on web
 		GlobalVars.updateWrittenFont.emit()
+	
+	GlobalVars.sortOption = int(json.data["sortOption"]) as GlobalVars.SortOption
+	conLex.performSort()

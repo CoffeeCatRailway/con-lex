@@ -149,6 +149,7 @@ HScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_bcf2e")
 HScrollBar/styles/scroll = SubResource("StyleBoxFlat_7g2p0")
 HScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_357y2")
 HSeparator/styles/separator = SubResource("StyleBoxLine_6ehjx")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_llqld")
 VScrollBar/constants/padding_left = 5
 VScrollBar/constants/padding_right = 5
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_wycmq")

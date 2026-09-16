@@ -143,19 +143,44 @@ legend = true
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2" unique_id=980432783]
 layout_mode = 2
 
-[node name="NewEntryBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=748473319]
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=1201659240]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="NewEntryBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer" unique_id=748473319]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "New Entry"
 
-[node name="UseFontBtn" type="CheckButton" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=1992149698]
+[node name="SortBtn" type="MenuButton" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer" unique_id=1916593993]
+layout_mode = 2
+text = "SortMenu"
+flat = false
+item_count = 4
+popup/item_0/text = "Written"
+popup/item_0/checkable = 1
+popup/item_0/id = 0
+popup/item_1/text = "Literal"
+popup/item_1/checkable = 1
+popup/item_1/id = 1
+popup/item_2/text = "Translate"
+popup/item_2/checkable = 1
+popup/item_2/id = 2
+popup/item_3/text = "Speech"
+popup/item_3/checkable = 1
+popup/item_3/id = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=350184382]
 layout_mode = 2
 size_flags_horizontal = 10
+
+[node name="UseFontBtn" type="CheckButton" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer2" unique_id=1992149698]
+layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Use Written Font"
 
-[node name="LoadFontBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=211436802]
+[node name="LoadFontBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer2" unique_id=211436802]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 disabled = true

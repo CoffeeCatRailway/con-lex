@@ -10,10 +10,13 @@ extends CanvasLayer
 @onready var webLabel: Label = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer2/WebLabel
 @onready var versionLabel: Label = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer2/VersionLabel
 
+@onready var newEntryBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer/NewEntryBtn
+@onready var sortBtn: MenuButton = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer/SortBtn
+
+@onready var useFontBtn: CheckButton = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer2/UseFontBtn
+@onready var loadFontBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer2/LoadFontBtn
+
 @onready var entryContainer: VBoxContainer = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/ScrollContainer/EntryContainer
-@onready var newEntryBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/NewEntryBtn
-@onready var useFontBtn: CheckButton = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/UseFontBtn
-@onready var loadFontBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/LoadFontBtn
 
 @onready var fileDialog: FileDialog = $FileDialog
 
@@ -48,6 +51,8 @@ func _ready() -> void:
 	
 	clearEntries()
 	newEntryBtn.pressed.connect(onNewEntryPressed)
+	sortBtn.get_popup().hide_on_checkable_item_selection = false
+	sortBtn.get_popup().index_pressed.connect(onSortPressed)
 	
 	useFontBtn.toggled.connect(onUseFontPressed)
 	loadFontBtn.pressed.connect(onLoadFontPressed)
@@ -69,7 +74,7 @@ func onOpenPressed() -> void:
 
 func onSavePressed() -> void:
 	if OS.get_name() == "Web":
-		SaveData.saveTo("conlex.clex", true)
+		SaveData.saveTo("conlex.clex", self, true)
 	else:
 		fileDialogUse = FileDialogUse.SAVE
 		fileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
@@ -77,7 +82,7 @@ func onSavePressed() -> void:
 		# check if file was already saved
 		if GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
 			fileDialog.clear_filters()
-			fileDialog.add_filter("*.conlex, *.clex", "ConLex Save")
+			fileDialog.add_filter("*.clex, *.conlex", "ConLex Save")
 			fileDialog.popup_centered()
 		else:
 			onFileSelected(GlobalVars.currentSavePath)
@@ -98,10 +103,8 @@ func clearEntries() -> void:
 
 func onNewEntryPressed() -> void:
 	var entry: LexEntry = GlobalVars.LEX_ENTRY.instantiate()
-	entry.id = GlobalVars.getNextId()
+	entry.id = GlobalVars.getTimeId()
 	entryContainer.add_child(entry)
-	
-	SaveData.entries[entry.id] = entry.toSaveEntry()
 
 func onUseFontPressed(toggled: bool) -> void:
 	loadFontBtn.disabled = !toggled
@@ -120,13 +123,57 @@ func onFileSelected(path: String) -> void:
 	match fileDialogUse:
 		FileDialogUse.FONT:
 			GlobalVars.writtenFont = GlobalVars.loadFont(path)
-			SaveData.writtenFontPath = path
+			GlobalVars.writtenFontPath = path
 			GlobalVars.updateWrittenFont.emit()
 		FileDialogUse.SAVE:
 			if GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
 				GlobalVars.currentSavePath = path
-			SaveData.saveTo(GlobalVars.currentSavePath, false)
+			SaveData.saveTo(GlobalVars.currentSavePath, self, false)
 		FileDialogUse.LOAD:
 			SaveData.loadFrom(path, self, false)
 		_:
 			push_warning("File dialog was used in unknown mode!")
+
+func sortEntries(fun: Callable) -> void:
+	var entries := entryContainer.get_children()
+	#print(entries)
+	entries.sort_custom(fun)
+	#print(entries)
+	for i in range(entries.size()):
+		entryContainer.move_child(entries[i], i)
+
+func performSort() -> void:
+	match GlobalVars.sortOption:
+		GlobalVars.SortOption.WRITTEN:
+			print("Sort by written")
+			sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.writtenLabel.text.naturalnocasecmp_to(b.writtenLabel.text) < 0)
+		GlobalVars.SortOption.LITERAL:
+			print("Sort by literal")
+			sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.literalLabel.text.naturalnocasecmp_to(b.literalLabel.text) < 0)
+		GlobalVars.SortOption.TRANSLATE:
+			print("Sort by translate")
+			sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.translateLabel.text.naturalnocasecmp_to(b.translateLabel.text) < 0)
+		GlobalVars.SortOption.SPEECH:
+			print("Sort by Speech")
+			sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.speechLabel.text.naturalnocasecmp_to(b.speechLabel.text) < 0)
+		_:
+			print("Sort by none/id")
+			sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.id.naturalnocasecmp_to(b.id) < 0)
+
+func onSortPressed(index: int) -> void:
+	var popup := sortBtn.get_popup()
+	var wasChecked := popup.is_item_checked(index)
+	if wasChecked:
+		popup.set_item_checked(index, false)
+		GlobalVars.sortOption = GlobalVars.SortOption.NONE
+	else:
+		if index < 0 || index >= popup.item_count:
+			printerr("Unknown sort option (%s)" % index)
+			return
+		
+		for i in popup.item_count:
+			popup.set_item_checked(i, false)
+		popup.set_item_checked(index, true)
+		GlobalVars.sortOption = index as GlobalVars.SortOption
+	
+	performSort()
