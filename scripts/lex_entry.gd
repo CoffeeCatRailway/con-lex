@@ -93,7 +93,6 @@ func onDeletePressed() -> void:
 	deleteMenu.visible = true
 
 func onDeleteYesPressed() -> void:
-	SaveData.entries.erase(id)
 	queue_free()
 
 func onDeleteNoPressed() -> void:

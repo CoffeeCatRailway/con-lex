@@ -109,7 +109,7 @@ func onNewEntryPressed() -> void:
 func onUseFontPressed(toggled: bool) -> void:
 	loadFontBtn.disabled = !toggled
 	GlobalVars.useWrittenFont = toggled
-	SaveData.useWrittenFont = toggled
+	GlobalVars.useWrittenFont = toggled
 	GlobalVars.updateWrittenFont.emit()
 
 func onLoadFontPressed() -> void:
