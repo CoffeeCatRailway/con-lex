@@ -11,6 +11,9 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lgss2"]
+bg_color = Color(0.105882354, 0.12156863, 0.12941177, 0.49803922)
+
 [node name="ConLex" type="CanvasLayer" unique_id=1507004523]
 script = ExtResource("1_lgss2")
 
@@ -171,6 +174,11 @@ popup/item_3/text = "Speech"
 popup/item_3/checkable = 1
 popup/item_3/id = 3
 
+[node name="SpeechSortBtn" type="MenuButton" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer" unique_id=283319077]
+layout_mode = 2
+text = "Speech Sort"
+flat = false
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=350184382]
 layout_mode = 2
 size_flags_horizontal = 10
@@ -211,3 +219,16 @@ force_native = true
 file_mode = 0
 access = 2
 filters = PackedStringArray("*.ttf")
+
+[node name="MenuContainer" type="MarginContainer" parent="." unique_id=791751436]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_c0o4j")
+
+[node name="Panel" type="Panel" parent="MenuContainer" unique_id=1428153110]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lgss2")

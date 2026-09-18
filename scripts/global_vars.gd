@@ -19,7 +19,7 @@ enum SortOption {
 }
 var sortOption := SortOption.NONE
 
-enum POS {
+enum SpeechPart {
 	ADJECTIVE,
 	ADVERB,
 	ARTICLE,
@@ -35,6 +35,7 @@ enum POS {
 	PRONOUN,
 	VERB,
 }
+var speechSort := SpeechPart.ADJECTIVE
 
 var _onWebFileLoadedCallback: JavaScriptObject = null
 var _currentId: int = 0

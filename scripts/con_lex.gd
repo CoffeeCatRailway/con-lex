@@ -12,6 +12,7 @@ extends CanvasLayer
 
 @onready var newEntryBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer/NewEntryBtn
 @onready var sortBtn: MenuButton = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer/SortBtn
+@onready var speechSortBtn: MenuButton = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer/SpeechSortBtn
 
 @onready var useFontBtn: CheckButton = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer2/UseFontBtn
 @onready var loadFontBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer2/LoadFontBtn
@@ -54,10 +55,25 @@ func _ready() -> void:
 	sortBtn.get_popup().hide_on_checkable_item_selection = false
 	sortBtn.get_popup().index_pressed.connect(onSortPressed)
 	
+	speechSortBtn.visible = false
+	var popup := speechSortBtn.get_popup()
+	popup.hide_on_checkable_item_selection = false
+	popup.index_pressed.connect(onSpeechSortPressed)
+	populateSpeechSortBtn()
+	
 	useFontBtn.toggled.connect(onUseFontPressed)
 	loadFontBtn.pressed.connect(onLoadFontPressed)
 	
 	fileDialog.file_selected.connect(onFileSelected)
+
+func populateSpeechSortBtn() -> void:
+	var i: int = 0
+	var popup := speechSortBtn.get_popup()
+	for part: String in GlobalVars.SpeechPart: 
+		popup.add_item(part.capitalize())
+		popup.set_item_as_checkable(i, true)
+		i += 1
+	popup.set_item_checked(int(GlobalVars.speechSort), true)
 
 func onNewPressed() -> void:
 	pass
@@ -154,11 +170,15 @@ func performSort() -> void:
 			print("Sort by translate")
 			sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.translateLabel.text.naturalnocasecmp_to(b.translateLabel.text) < 0)
 		GlobalVars.SortOption.SPEECH:
-			print("Sort by Speech")
-			sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.speechLabel.text.naturalnocasecmp_to(b.speechLabel.text) < 0)
+			#print("Sort by Speech")
+			#sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.speechLabel.text.naturalnocasecmp_to(b.speechLabel.text) < 0)
+			performSpeechSort()
 		_:
 			print("Sort by none/id")
 			sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.id.naturalnocasecmp_to(b.id) < 0)
+	
+	# Mark anyway
+	speechSortBtn.visible = sortBtn.get_popup().is_item_checked(int(GlobalVars.SortOption.SPEECH))
 
 func onSortPressed(index: int) -> void:
 	var popup := sortBtn.get_popup()
@@ -177,3 +197,37 @@ func onSortPressed(index: int) -> void:
 		GlobalVars.sortOption = index as GlobalVars.SortOption
 	
 	performSort()
+
+func performSpeechSort() -> void:
+	print("Sort by part of speech (%s)" % (GlobalVars.SpeechPart.keys()[int(GlobalVars.speechSort)]))
+	print_debug("First sort by id")
+	sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.id.naturalnocasecmp_to(b.id) < 0)
+	sortEntries(func(a: LexEntry, b: LexEntry) -> bool:
+		var aParts: Array[bool] = []
+		aParts.resize(GlobalVars.SpeechPart.size())
+		var bParts: Array[bool] = []
+		bParts.resize(GlobalVars.SpeechPart.size())
+		for i in GlobalVars.SpeechPart.size():
+			aParts[i] = a.speechContainer.get_child(i).visible
+			bParts[i] = b.speechContainer.get_child(i).visible
+			#if aParts[i] || bParts[i]:
+				#print("%s: %s, %s" % [GlobalVars.SpeechPart.keys()[i], aParts[i], bParts[i]])
+		
+		return aParts[int(GlobalVars.speechSort)]# || bParts[int(GlobalVars.speechSort)]
+	)
+
+func onSpeechSortPressed(index: int) -> void:
+	var popup := speechSortBtn.get_popup()
+	if popup.is_item_checked(index):
+		return
+	else:
+		if index < 0 || index >= popup.item_count:
+			printerr("Unknown speech sort option (%s) % index")
+			return
+		
+		for i in popup.item_count:
+			popup.set_item_checked(i, false)
+		popup.set_item_checked(index, true)
+		GlobalVars.speechSort = index as GlobalVars.SpeechPart
+	
+	performSpeechSort()

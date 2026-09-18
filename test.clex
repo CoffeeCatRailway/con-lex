@@ -23,6 +23,12 @@
 			"speech": 2,
 			"translate": "b",
 			"written": "d"
+		},
+		"4": {
+			"literal": "e",
+			"speech": 8226,
+			"translate": "e",
+			"written": "e"
 		}
 	},
 	"sortOption": 0,

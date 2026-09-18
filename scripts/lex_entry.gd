@@ -70,10 +70,10 @@ func _ready() -> void:
 
 func populateSpeechContainer() -> void:
 	var i: int = 0
-	for pos: String in GlobalVars.POS: 
+	for part: String in GlobalVars.SpeechPart: 
 		var label := AutoSizeLabel.new()
 		label.maxFontSize = 20
-		label.text = pos.capitalize()
+		label.text = part.capitalize()
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		label.visible = false
