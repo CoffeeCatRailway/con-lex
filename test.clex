@@ -20,13 +20,13 @@
 		},
 		"3": {
 			"literal": "a",
-			"speech": 2,
+			"speech": 260,
 			"translate": "b",
 			"written": "d"
 		},
 		"4": {
 			"literal": "e",
-			"speech": 8226,
+			"speech": 10282,
 			"translate": "e",
 			"written": "e"
 		}
