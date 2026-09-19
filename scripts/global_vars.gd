@@ -31,6 +31,7 @@ enum SpeechPart {
 	NOUN,
 	NUMERAL,
 	PARTICLE,
+	PREPOSITION,
 	PREVERB,
 	PRONOUN,
 	VERB,
