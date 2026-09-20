@@ -63,6 +63,9 @@ func getTimeId() -> String:
 	return str(id)
 
 func loadFont(path: String) -> Font:
+	if !FileAccess.file_exists(path):
+		push_warning("Font file (%s) does not exist!" % path)
+		return null
 	var font := FontFile.new()
 	font.load_dynamic_font(path)
 	return font
