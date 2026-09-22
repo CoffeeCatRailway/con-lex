@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ConLex"
-config/version="0.3"
+config/version="0.4"
 run/main_scene="uid://kmo25uolrekv"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="uid://c4q1iwqr3qix2"
