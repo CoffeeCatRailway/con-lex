@@ -5,12 +5,13 @@ extends CanvasLayer
 @onready var openBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/OpenBtn
 @onready var saveBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/SaveBtn
 @onready var saveAsBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/SaveAsBtn
-@onready var findBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/FindBtn
 
 @onready var webLabel: Label = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer2/WebLabel
 @onready var versionLabel: Label = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer2/VersionLabel
 
 @onready var newEntryBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer/NewEntryBtn
+@onready var findBtn: MenuButton = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer/FindBtn
+@onready var findText: TextEdit = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer/FindText
 @onready var sortBtn: MenuButton = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer/SortBtn
 @onready var speechSortBtn: MenuButton = $ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer/SpeechSortBtn
 
@@ -47,10 +48,17 @@ func _ready() -> void:
 	openBtn.pressed.connect(onOpenPressed)
 	saveBtn.pressed.connect(onSavePressed)
 	saveAsBtn.pressed.connect(onSaveAsPressed)
-	findBtn.pressed.connect(onFindPressed)
 	
 	clearEntries()
 	newEntryBtn.pressed.connect(onNewEntryPressed)
+	
+	findBtn.get_popup().hide_on_checkable_item_selection = false
+	findBtn.get_popup().index_pressed.connect(onFindPressed)
+	populateFindBtn()
+	
+	findText.visible = false
+	findText.text_changed.connect(onFindTextChanged)
+	
 	sortBtn.get_popup().hide_on_checkable_item_selection = false
 	sortBtn.get_popup().index_pressed.connect(onSortPressed)
 	
@@ -65,6 +73,14 @@ func _ready() -> void:
 	loadFontBtn.visible = false
 	
 	fileDialog.file_selected.connect(onFileSelected)
+
+func populateFindBtn() -> void:
+	var popup := findBtn.get_popup()
+	for i in GlobalVars.SortOption.size():
+		if i == int(GlobalVars.SortOption.NONE) || i == int(GlobalVars.SortOption.SPEECH):
+			continue
+		popup.add_item(GlobalVars.SortOption.keys()[i].capitalize())
+		popup.set_item_as_checkable(i, true)
 
 func populateSpeechSortBtn() -> void:
 	var i: int = 0
@@ -119,9 +135,6 @@ func onNewEntryPressed() -> void:
 	entry.id = GlobalVars.getTimeId()
 	entryContainer.add_child(entry)
 
-func onFindPressed() -> void:
-	pass
-
 func sortEntries(fun: Callable) -> void:
 	var entries := entryContainer.get_children()
 	#print(entries)
@@ -129,6 +142,51 @@ func sortEntries(fun: Callable) -> void:
 	#print(entries)
 	for i in range(entries.size()):
 		entryContainer.move_child(entries[i], i)
+
+func onFindPressed(index: int) -> void:
+	var popup := findBtn.get_popup()
+	var wasChecked := popup.is_item_checked(index)
+	if wasChecked:
+		popup.set_item_checked(index, false)
+		GlobalVars.findOption = GlobalVars.SortOption.NONE
+		findText.visible = false
+		
+		performSort()
+	else:
+		if index < 0 || index >= popup.item_count:
+			printerr("Unknown sort option (%s)" % index)
+			return
+		
+		for i in popup.item_count:
+			popup.set_item_checked(i, false)
+		popup.set_item_checked(index, true)
+		GlobalVars.findOption = index as GlobalVars.SortOption
+		findText.visible = true
+		
+		#onFindTextChanged()
+
+func onFindTextChanged() -> void:
+	performSort()
+	var text := findText.text.to_lower()
+	if text.is_empty() || text == "":
+		return
+	sortEntries(func(a: LexEntry, b: LexEntry) -> bool:
+		var A := false
+		var B := false
+		match GlobalVars.findOption:
+			GlobalVars.SortOption.WRITTEN:
+				A = a.writtenLabel.text.to_lower().contains(text)
+				B = b.writtenLabel.text.to_lower().contains(text)
+			GlobalVars.SortOption.LITERAL:
+				A = a.literalLabel.text.to_lower().contains(text)
+				B = b.literalLabel.text.to_lower().contains(text)
+			GlobalVars.SortOption.TRANSLATE:
+				A = a.translateLabel.text.to_lower().contains(text)
+				B = b.translateLabel.text.to_lower().contains(text)
+		if A && B:
+			return false
+		return A
+	)
 
 func performSort() -> void:
 	match GlobalVars.sortOption:

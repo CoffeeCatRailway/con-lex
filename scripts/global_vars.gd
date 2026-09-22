@@ -18,6 +18,7 @@ enum SortOption {
 	NONE
 }
 var sortOption := SortOption.NONE
+var findOption := SortOption.NONE
 
 enum SpeechPart {
 	ADJECTIVE,

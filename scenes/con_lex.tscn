@@ -90,13 +90,6 @@ layout_mode = 2
 theme = ExtResource("1_c0o4j")
 text = "Save As"
 
-[node name="FindBtn" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer" unique_id=1706596685]
-custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
-theme = ExtResource("1_c0o4j")
-disabled = true
-text = "Find"
-
 [node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2" unique_id=919784746]
 layout_mode = 2
 size_flags_horizontal = 10
@@ -155,6 +148,20 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "New Entry"
+
+[node name="FindBtn" type="MenuButton" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer" unique_id=1085341059]
+layout_mode = 2
+text = "Find"
+flat = false
+
+[node name="FindText" type="TextEdit" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer" unique_id=1131193351]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+placeholder_text = "gru"
+emoji_menu_enabled = false
+draw_control_chars = true
+draw_tabs = true
+draw_spaces = true
 
 [node name="SortBtn" type="MenuButton" parent="ColorRect/MarginContainer/VBoxContainer/Editor/MarginContainer/VBoxContainer2/HBoxContainer/HBoxContainer" unique_id=1916593993]
 layout_mode = 2
