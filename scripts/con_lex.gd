@@ -170,24 +170,6 @@ func onSortPressed(index: int) -> void:
 	
 	performSort()
 
-func performSpeechSort() -> void:
-	print("Sort by part of speech (%s)" % (GlobalVars.SpeechPart.keys()[int(GlobalVars.speechSort)]))
-	print_debug("First sort by id")
-	sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.id.naturalnocasecmp_to(b.id) < 0)
-	sortEntries(func(a: LexEntry, _b: LexEntry) -> bool:
-		var aParts: Array[bool] = []
-		aParts.resize(GlobalVars.SpeechPart.size())
-		#var bParts: Array[bool] = []
-		#bParts.resize(GlobalVars.SpeechPart.size())
-		for i: int in GlobalVars.SpeechPart.size():
-			aParts[i] = a.speechContainer.get_child(i).visible
-			#bParts[i] = b.speechContainer.get_child(i).visible
-			#if aParts[i] || bParts[i]:
-				#print("%s: %s, %s" % [GlobalVars.SpeechPart.keys()[i], aParts[i], bParts[i]])
-		
-		return aParts[int(GlobalVars.speechSort)]# || bParts[int(GlobalVars.speechSort)]
-	)
-
 func onSpeechSortPressed(index: int) -> void:
 	var popup := speechSortBtn.get_popup()
 	if popup.is_item_checked(index):
@@ -203,6 +185,18 @@ func onSpeechSortPressed(index: int) -> void:
 		GlobalVars.speechSort = index as GlobalVars.SpeechPart
 	
 	performSpeechSort()
+
+func performSpeechSort() -> void:
+	print("Sort by part of speech (%s)" % (GlobalVars.SpeechPart.keys()[int(GlobalVars.speechSort)]))
+	print_debug("First sort by id")
+	sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.id.naturalnocasecmp_to(b.id) < 0)
+	sortEntries(func(a: LexEntry, b: LexEntry) -> bool:
+		var A: bool = a.speechContainer.get_child(int(GlobalVars.speechSort)).visible
+		var B: bool = b.speechContainer.get_child(int(GlobalVars.speechSort)).visible
+		if A && B:
+			return false
+		return A
+	)
 
 func onUseFontPressed(toggled: bool) -> void:
 	loadFontBtn.disabled = !toggled
