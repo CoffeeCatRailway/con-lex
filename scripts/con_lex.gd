@@ -268,6 +268,9 @@ func onLoadFontPressed() -> void:
 	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	fileDialog.clear_filters()
 	fileDialog.add_filter("*.ttf", "True Type Font")
+	fileDialog.add_filter("*.otf", "Open Type Font")
+	fileDialog.add_filter("*.woff")
+	fileDialog.add_filter("*.woff2")
 	fileDialog.popup_centered()
 
 func onFileSelected(path: String) -> void:
