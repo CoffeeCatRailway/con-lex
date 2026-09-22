@@ -38,7 +38,6 @@ func _ready() -> void:
 		useFontBtn.disabled = true
 		useFontBtn.visible = false
 		loadFontBtn.disabled = true
-		loadFontBtn.visible = false
 	else:
 		webLabel.visible = false
 	
@@ -63,6 +62,7 @@ func _ready() -> void:
 	
 	useFontBtn.toggled.connect(onUseFontPressed)
 	loadFontBtn.pressed.connect(onLoadFontPressed)
+	loadFontBtn.visible = false
 	
 	fileDialog.file_selected.connect(onFileSelected)
 
@@ -110,9 +110,6 @@ func onSaveAsPressed() -> void:
 	fileDialog.add_filter("*.conlex, *.clex", "ConLex Save")
 	fileDialog.popup_centered()
 
-func onFindPressed() -> void:
-	pass
-
 func clearEntries() -> void:
 	for entry in entryContainer.get_children():
 		entry.queue_free()
@@ -122,33 +119,8 @@ func onNewEntryPressed() -> void:
 	entry.id = GlobalVars.getTimeId()
 	entryContainer.add_child(entry)
 
-func onUseFontPressed(toggled: bool) -> void:
-	loadFontBtn.disabled = !toggled
-	GlobalVars.useWrittenFont = toggled
-	GlobalVars.useWrittenFont = toggled
-	GlobalVars.updateWrittenFont.emit()
-
-func onLoadFontPressed() -> void:
-	fileDialogUse = FileDialogUse.FONT
-	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	fileDialog.clear_filters()
-	fileDialog.add_filter("*.ttf", "True Type Font")
-	fileDialog.popup_centered()
-
-func onFileSelected(path: String) -> void:
-	match fileDialogUse:
-		FileDialogUse.FONT:
-			GlobalVars.writtenFont = GlobalVars.loadFont(path)
-			GlobalVars.writtenFontPath = path
-			GlobalVars.updateWrittenFont.emit()
-		FileDialogUse.SAVE:
-			if GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
-				GlobalVars.currentSavePath = path
-			SaveData.saveTo(GlobalVars.currentSavePath, self, false)
-		FileDialogUse.LOAD:
-			SaveData.loadFrom(path, self, false)
-		_:
-			push_warning("File dialog was used in unknown mode!")
+func onFindPressed() -> void:
+	pass
 
 func sortEntries(fun: Callable) -> void:
 	var entries := entryContainer.get_children()
@@ -202,14 +174,14 @@ func performSpeechSort() -> void:
 	print("Sort by part of speech (%s)" % (GlobalVars.SpeechPart.keys()[int(GlobalVars.speechSort)]))
 	print_debug("First sort by id")
 	sortEntries(func(a: LexEntry, b: LexEntry) -> bool: return a.id.naturalnocasecmp_to(b.id) < 0)
-	sortEntries(func(a: LexEntry, b: LexEntry) -> bool:
+	sortEntries(func(a: LexEntry, _b: LexEntry) -> bool:
 		var aParts: Array[bool] = []
 		aParts.resize(GlobalVars.SpeechPart.size())
-		var bParts: Array[bool] = []
-		bParts.resize(GlobalVars.SpeechPart.size())
-		for i in GlobalVars.SpeechPart.size():
+		#var bParts: Array[bool] = []
+		#bParts.resize(GlobalVars.SpeechPart.size())
+		for i: int in GlobalVars.SpeechPart.size():
 			aParts[i] = a.speechContainer.get_child(i).visible
-			bParts[i] = b.speechContainer.get_child(i).visible
+			#bParts[i] = b.speechContainer.get_child(i).visible
 			#if aParts[i] || bParts[i]:
 				#print("%s: %s, %s" % [GlobalVars.SpeechPart.keys()[i], aParts[i], bParts[i]])
 		
@@ -231,3 +203,32 @@ func onSpeechSortPressed(index: int) -> void:
 		GlobalVars.speechSort = index as GlobalVars.SpeechPart
 	
 	performSpeechSort()
+
+func onUseFontPressed(toggled: bool) -> void:
+	loadFontBtn.disabled = !toggled
+	loadFontBtn.visible = toggled
+	GlobalVars.useWrittenFont = toggled
+	GlobalVars.useWrittenFont = toggled
+	GlobalVars.updateWrittenFont.emit()
+
+func onLoadFontPressed() -> void:
+	fileDialogUse = FileDialogUse.FONT
+	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	fileDialog.clear_filters()
+	fileDialog.add_filter("*.ttf", "True Type Font")
+	fileDialog.popup_centered()
+
+func onFileSelected(path: String) -> void:
+	match fileDialogUse:
+		FileDialogUse.FONT:
+			GlobalVars.writtenFont = GlobalVars.loadFont(path)
+			GlobalVars.writtenFontPath = path
+			GlobalVars.updateWrittenFont.emit()
+		FileDialogUse.SAVE:
+			if GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
+				GlobalVars.currentSavePath = path
+			SaveData.saveTo(GlobalVars.currentSavePath, self, false)
+		FileDialogUse.LOAD:
+			SaveData.loadFrom(path, self, false)
+		_:
+			push_warning("File dialog was used in unknown mode!")
