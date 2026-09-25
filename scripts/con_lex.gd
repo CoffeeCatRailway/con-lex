@@ -118,7 +118,12 @@ func onNewPressed() -> void:
 		openSaveMenu(SaveMenuCause.NEW)
 	else:
 		GlobalVars.needsSaving = true
-		# TODO: New file
+		_new()
+
+func _new() -> void:
+	clearEntries()
+	GlobalVars.currentSavePath = ""
+	loadedLabel.text = "N/A"
 
 func onOpenPressed() -> void:
 	if GlobalVars.needsSaving:
@@ -338,7 +343,7 @@ func onSaveMenuSavePressed() -> void:
 	save(false)
 	match saveMenuCause:
 		SaveMenuCause.NEW:
-			pass
+			_new()
 		SaveMenuCause.OPEN:
 			open()
 		SaveMenuCause.CLOSE:
@@ -349,7 +354,7 @@ func onSaveMenuDiscardPressed() -> void:
 	saveMenu.visible = false
 	match saveMenuCause:
 		SaveMenuCause.NEW:
-			pass
+			_new()
 		SaveMenuCause.OPEN:
 			open()
 		SaveMenuCause.CLOSE:
