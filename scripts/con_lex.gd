@@ -153,7 +153,10 @@ func onSaveAsPressed() -> void:
 
 func save(saveAs: bool) -> void:
 	if OS.get_name() == "Web":
-		SaveData.saveTo("conlex.clex", self, true)
+		if GlobalVars.currentSavePath.is_empty():
+			SaveData.saveTo("conlex.clex", self, true)
+		else:
+			SaveData.saveTo(GlobalVars.currentSavePath, self, true)
 	else:
 		fileDialogUse = FileDialogUse.SAVE
 		fileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE

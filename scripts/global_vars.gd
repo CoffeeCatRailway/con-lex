@@ -60,7 +60,8 @@ func webFileUpload(accept: String = "*") -> void:
 func _onWebFileLoaded(args: Array) -> void:
 	if OS.get_name() != "Web":
 		return
-	SaveData.loadFrom("Web", get_tree().current_scene, true, args[0])
+	GlobalVars.currentSavePath = args[0]
+	SaveData.loadFrom(GlobalVars.currentSavePath, get_tree().current_scene, true, args[1])
 
 func getTimeId() -> String:
 	var id := _currentId
