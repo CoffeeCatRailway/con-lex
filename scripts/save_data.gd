@@ -33,9 +33,10 @@ func saveTo(path: String, conlex: ConLex, webBuild: bool) -> void:
 		var file := FileAccess.open(path, FileAccess.WRITE)
 		file.store_line(json)
 	
+	conlex.loadedLabel.text = path.split("/")[-1]
 	GlobalVars.needsSaving = false
 
-func loadFrom(path: String, conLex: ConLex, webBuild: bool, webData: String = "") -> void:
+func loadFrom(path: String, conlex: ConLex, webBuild: bool, webData: String = "") -> void:
 	print("Loading from (%s)" % path)
 	var data: String
 	if webBuild:
@@ -65,9 +66,9 @@ func loadFrom(path: String, conLex: ConLex, webBuild: bool, webData: String = ""
 		#var font: Font = GlobalVars.loadFont(GlobalVars.writtenFontPath)
 		#if font:
 			#GlobalVars.writtenFont = font
-		conLex.useFontBtn.button_pressed = GlobalVars.useWrittenFont
+		conlex.useFontBtn.button_pressed = GlobalVars.useWrittenFont
 	
-	conLex.clearEntries()
+	conlex.clearEntries()
 	
 	@warning_ignore("shadowed_variable")
 	var entries: Dictionary = json.data["entries"]
@@ -75,7 +76,7 @@ func loadFrom(path: String, conLex: ConLex, webBuild: bool, webData: String = ""
 	for id: String in entries:
 		maxId = maxi(maxId, int(id))
 		var entry: LexEntry = GlobalVars.LEX_ENTRY.instantiate()
-		conLex.entryContainer.add_child(entry)
+		conlex.entryContainer.add_child(entry)
 		entry.id = id
 		
 		var entryData: Dictionary = entries[id]
@@ -94,6 +95,7 @@ func loadFrom(path: String, conLex: ConLex, webBuild: bool, webData: String = ""
 		GlobalVars.updateWrittenFont.emit()
 	
 	GlobalVars.sortOption = int(json.data["sortOption"]) as GlobalVars.SortOption
-	conLex.performSort()
+	conlex.performSort()
 	
+	conlex.loadedLabel.text = path.split("/")[-1]
 	GlobalVars.needsSaving = false

@@ -102,6 +102,14 @@ layout_mode = 2
 theme = ExtResource("1_c0o4j")
 text = "Save As"
 
+[node name="LoadedLabel" type="Label" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer" unique_id=1501371682]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "N/A"
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 5
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2" unique_id=919784746]
 layout_mode = 2
 size_flags_horizontal = 10
@@ -240,6 +248,7 @@ access = 2
 filters = PackedStringArray("*.ttf")
 
 [node name="MenuContainer" type="MarginContainer" parent="." unique_id=791751436]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

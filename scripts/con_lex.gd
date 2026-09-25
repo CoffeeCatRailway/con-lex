@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var openBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/OpenBtn
 @onready var saveBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/SaveBtn
 @onready var saveAsBtn: Button = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/SaveAsBtn
+@onready var loadedLabel: Label = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer/LoadedLabel
 
 @onready var webLabel: Label = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer2/WebLabel
 @onready var versionLabel: Label = $ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer2/VersionLabel
@@ -36,7 +37,6 @@ var fileDialogUse := FileDialogUse.FONT
 
 enum SaveMenuCause {
 	NEW,
-	SAVE,
 	OPEN,
 	CLOSE
 }
@@ -153,8 +153,11 @@ func save(saveAs: bool) -> void:
 		fileDialogUse = FileDialogUse.SAVE
 		fileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
 		
+		if saveAs:
+			GlobalVars.currentSavePath = ""
+		
 		# check if file was already saved
-		if saveAs || GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
+		if GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
 			fileDialog.clear_filters()
 			fileDialog.add_filter("*.clex, *.conlex", "ConLex Save")
 			fileDialog.popup_centered()
@@ -336,8 +339,6 @@ func onSaveMenuSavePressed() -> void:
 	match saveMenuCause:
 		SaveMenuCause.NEW:
 			pass
-		SaveMenuCause.SAVE:
-			pass
 		SaveMenuCause.OPEN:
 			open()
 		SaveMenuCause.CLOSE:
@@ -348,8 +349,6 @@ func onSaveMenuDiscardPressed() -> void:
 	saveMenu.visible = false
 	match saveMenuCause:
 		SaveMenuCause.NEW:
-			pass
-		SaveMenuCause.SAVE:
 			pass
 		SaveMenuCause.OPEN:
 			open()
