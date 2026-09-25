@@ -33,7 +33,7 @@ func saveTo(path: String, conlex: ConLex, webBuild: bool) -> void:
 		var file := FileAccess.open(path, FileAccess.WRITE)
 		file.store_line(json)
 	
-	conlex.loadedLabel.text = path.split("/")[-1]
+	conlex.loadedLabel.text = "Current: %s" % path.split("/")[-1]
 	GlobalVars.needsSaving = false
 
 func loadFrom(path: String, conlex: ConLex, webBuild: bool, webData: String = "") -> void:
@@ -97,5 +97,5 @@ func loadFrom(path: String, conlex: ConLex, webBuild: bool, webData: String = ""
 	GlobalVars.sortOption = int(json.data["sortOption"]) as GlobalVars.SortOption
 	conlex.performSort()
 	
-	conlex.loadedLabel.text = path.split("/")[-1]
+	conlex.loadedLabel.text = "Current: %s" % path.split("/")[-1]
 	GlobalVars.needsSaving = false

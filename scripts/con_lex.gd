@@ -123,7 +123,7 @@ func onNewPressed() -> void:
 func _new() -> void:
 	clearEntries()
 	GlobalVars.currentSavePath = ""
-	loadedLabel.text = "N/A"
+	loadedLabel.text = "Current: N/A"
 
 func onOpenPressed() -> void:
 	if GlobalVars.needsSaving:

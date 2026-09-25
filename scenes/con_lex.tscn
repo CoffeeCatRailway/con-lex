@@ -104,7 +104,7 @@ text = "Save As"
 [node name="LoadedLabel" type="Label" parent="ColorRect/MarginContainer/VBoxContainer/Options/MarginContainer/HBoxContainer2/HBoxContainer" unique_id=1501371682]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "N/A"
+text = "Current: N/A"
 vertical_alignment = 1
 clip_text = true
 text_overrun_behavior = 5
