@@ -29,6 +29,19 @@ enum FileDialogUse {
 }
 var fileDialogUse := FileDialogUse.FONT
 
+@onready var menus: MarginContainer = $MenuContainer
+@onready var saveMenu: MarginContainer = $MenuContainer/CenterContainer/SaveMenu
+@onready var saveMenuSaveBtn: Button = $MenuContainer/CenterContainer/SaveMenu/VBoxContainer/HBoxContainer/SaveBtn
+@onready var saveMenuDiscardBtn: Button = $MenuContainer/CenterContainer/SaveMenu/VBoxContainer/HBoxContainer/DiscardBtn
+
+enum SaveMenuCause {
+	NEW,
+	SAVE,
+	OPEN,
+	CLOSE
+}
+var saveMenuCause := SaveMenuCause.NEW
+
 func _ready() -> void:
 	if OS.get_name() == "Web":
 		saveAsBtn.disabled = true
@@ -74,6 +87,14 @@ func _ready() -> void:
 	loadFontBtn.visible = false
 	
 	fileDialog.file_selected.connect(onFileSelected)
+	
+	menus.visible = false
+	saveMenu.visible = false
+	saveMenuSaveBtn.pressed.connect(onSaveMenuSavePressed)
+	saveMenuDiscardBtn.pressed.connect(onSaveMenuDiscardPressed)
+	
+	get_tree().auto_accept_quit = false
+	get_window().close_requested.connect(onCloseRequested)
 
 func populateFindBtn() -> void:
 	var popup := findBtn.get_popup()
@@ -93,9 +114,20 @@ func populateSpeechSortBtn() -> void:
 	popup.set_item_checked(int(GlobalVars.speechSort), true)
 
 func onNewPressed() -> void:
-	pass
+	if GlobalVars.needsSaving:
+		openSaveMenu(SaveMenuCause.NEW)
+	else:
+		GlobalVars.needsSaving = true
+		# TODO: New file
 
 func onOpenPressed() -> void:
+	if GlobalVars.needsSaving:
+		openSaveMenu(SaveMenuCause.OPEN)
+	else:
+		#GlobalVars.needsSaving = true
+		open()
+
+func open() -> void:
 	if OS.get_name() == "Web":
 		GlobalVars.webFileUpload(".clex, .conlex")
 	else:
@@ -106,6 +138,15 @@ func onOpenPressed() -> void:
 		fileDialog.popup_centered()
 
 func onSavePressed() -> void:
+	#if GlobalVars.needsSaving:
+		#openSaveMenu(SaveMenuCause.SAVE)
+	#else:
+	save(false)
+
+func onSaveAsPressed() -> void:
+	save(true)
+
+func save(saveAs: bool) -> void:
 	if OS.get_name() == "Web":
 		SaveData.saveTo("conlex.clex", self, true)
 	else:
@@ -113,19 +154,12 @@ func onSavePressed() -> void:
 		fileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
 		
 		# check if file was already saved
-		if GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
+		if saveAs || GlobalVars.currentSavePath.is_empty() || !GlobalVars.currentSavePath:
 			fileDialog.clear_filters()
 			fileDialog.add_filter("*.clex, *.conlex", "ConLex Save")
 			fileDialog.popup_centered()
 		else:
 			onFileSelected(GlobalVars.currentSavePath)
-
-func onSaveAsPressed() -> void:
-	fileDialogUse = FileDialogUse.SAVE
-	fileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
-	fileDialog.clear_filters()
-	fileDialog.add_filter("*.conlex, *.clex", "ConLex Save")
-	fileDialog.popup_centered()
 
 func clearEntries() -> void:
 	for entry in entryContainer.get_children():
@@ -135,6 +169,7 @@ func onNewEntryPressed() -> void:
 	var entry: LexEntry = GlobalVars.LEX_ENTRY.instantiate()
 	entry.id = GlobalVars.getTimeId()
 	entryContainer.add_child(entry)
+	GlobalVars.needsSaving = true
 
 func sortEntries(fun: Callable) -> void:
 	var entries := entryContainer.get_children()
@@ -288,3 +323,44 @@ func onFileSelected(path: String) -> void:
 			SaveData.loadFrom(path, self, false)
 		_:
 			push_warning("File dialog was used in unknown mode!")
+
+func openSaveMenu(cause: SaveMenuCause) -> void:
+	saveMenuCause = cause
+	menus.visible = true
+	saveMenu.visible = true
+
+func onSaveMenuSavePressed() -> void:
+	menus.visible = false
+	saveMenu.visible = false
+	save(false)
+	match saveMenuCause:
+		SaveMenuCause.NEW:
+			pass
+		SaveMenuCause.SAVE:
+			pass
+		SaveMenuCause.OPEN:
+			open()
+		SaveMenuCause.CLOSE:
+			close()
+
+func onSaveMenuDiscardPressed() -> void:
+	menus.visible = false
+	saveMenu.visible = false
+	match saveMenuCause:
+		SaveMenuCause.NEW:
+			pass
+		SaveMenuCause.SAVE:
+			pass
+		SaveMenuCause.OPEN:
+			open()
+		SaveMenuCause.CLOSE:
+			close()
+
+func onCloseRequested() -> void:
+	if GlobalVars.needsSaving:
+		openSaveMenu(SaveMenuCause.CLOSE)
+	else:
+		close()
+
+func close() -> void:
+	get_tree().quit()

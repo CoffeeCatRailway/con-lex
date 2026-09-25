@@ -99,6 +99,7 @@ func onEditPressed() -> void:
 	deleteMenu.visible = false
 
 func onEditSavePressed() -> void:
+	GlobalVars.needsSaving = true
 	writtenLabel.text = editWrittenBox.text
 	literalLabel.text = editLiteralBox.text
 	translateLabel.text = editTranslateBox.text
@@ -133,6 +134,7 @@ func onDeletePressed() -> void:
 	deleteMenu.visible = true
 
 func onDeleteYesPressed() -> void:
+	GlobalVars.needsSaving = true
 	queue_free()
 
 func onDeleteNoPressed() -> void:

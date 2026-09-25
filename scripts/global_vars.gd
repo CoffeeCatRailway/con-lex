@@ -41,6 +41,8 @@ enum SpeechPart {
 }
 var speechSort := SpeechPart.ADJECTIVE
 
+var needsSaving: bool = false
+
 var _onWebFileLoadedCallback: JavaScriptObject = null
 var _currentId: int = 0
 

@@ -32,6 +32,8 @@ func saveTo(path: String, conlex: ConLex, webBuild: bool) -> void:
 	else:
 		var file := FileAccess.open(path, FileAccess.WRITE)
 		file.store_line(json)
+	
+	GlobalVars.needsSaving = false
 
 func loadFrom(path: String, conLex: ConLex, webBuild: bool, webData: String = "") -> void:
 	print("Loading from (%s)" % path)
@@ -93,3 +95,5 @@ func loadFrom(path: String, conLex: ConLex, webBuild: bool, webData: String = ""
 	
 	GlobalVars.sortOption = int(json.data["sortOption"]) as GlobalVars.SortOption
 	conLex.performSort()
+	
+	GlobalVars.needsSaving = false

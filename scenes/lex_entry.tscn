@@ -270,6 +270,7 @@ grow_vertical = 2
 theme = ExtResource("5_ysbrn")
 
 [node name="EditMenu" type="Panel" parent="Menus/CenterContainer" unique_id=1156563650]
+visible = false
 custom_minimum_size = Vector2(800, 340)
 layout_mode = 2
 theme = ExtResource("5_ysbrn")
@@ -421,7 +422,6 @@ text = "Select"
 flat = false
 
 [node name="DeleteMenu" type="Panel" parent="Menus/CenterContainer" unique_id=1274283583]
-visible = false
 custom_minimum_size = Vector2(300, 125)
 layout_mode = 2
 theme = ExtResource("5_ysbrn")
