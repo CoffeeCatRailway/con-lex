@@ -109,6 +109,7 @@ func onEditSavePressed() -> void:
 		label.visible = editSpeechBtn.get_popup().is_item_checked(i)
 	
 	onEditClosePressed()
+	GlobalVars.performSort.emit()
 
 func onEditClosePressed() -> void:
 	menus.visible = false

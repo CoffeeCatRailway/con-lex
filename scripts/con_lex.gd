@@ -59,6 +59,7 @@ func _ready() -> void:
 	findText.visible = false
 	findText.text_changed.connect(onFindTextChanged)
 	
+	GlobalVars.performSort.connect(performSort)
 	sortBtn.get_popup().hide_on_checkable_item_selection = false
 	sortBtn.get_popup().index_pressed.connect(onSortPressed)
 	

@@ -18,6 +18,8 @@ enum SortOption {
 	NONE
 }
 var sortOption := SortOption.NONE
+@warning_ignore("unused_signal")
+signal performSort
 var findOption := SortOption.NONE
 
 enum SpeechPart {
